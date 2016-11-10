@@ -22,7 +22,7 @@ public class PATString implements IPATString{
 		return str;
 	}
 
-	public IPATStringE endWord (IPATString str){
+	public IPATStringE wordEps (IPATString str){
 		return new PATStringE(str.getStr());
 	}
 }
