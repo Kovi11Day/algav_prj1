@@ -1,0 +1,13 @@
+package com.algav.patricia.string;
+
+public class PATStringE implements IPATStringE{
+
+	private String str;
+	
+	public PATStringE(String s1){
+		char ascii = (char)0;
+		String st = String.valueOf(ascii);
+		String s2 = s1.concat(st);
+		str = s2;
+	}
+}

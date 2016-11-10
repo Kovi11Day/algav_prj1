@@ -1,0 +1,15 @@
+package com.algav.patricia;
+
+public class PATString implements IPATString{
+	
+	private String str;
+
+	public PATString(String str) {
+		for (int i = 0; i < str.length(); ++i){
+		
+		}
+		this.str = str;
+	}
+	
+	
+}

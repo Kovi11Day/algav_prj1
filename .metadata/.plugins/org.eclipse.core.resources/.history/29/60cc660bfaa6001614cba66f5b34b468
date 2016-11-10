@@ -1,0 +1,10 @@
+package com.algav.patricia.string;
+
+public class PATStringE implements IPATStringE{
+
+	private String str;
+	
+	public PATStringE(String s){
+		
+	}
+}

@@ -1,0 +1,8 @@
+package com.algav.patricia;
+
+public class PATString implements IPATString{
+	
+	private String str;
+	
+	
+}

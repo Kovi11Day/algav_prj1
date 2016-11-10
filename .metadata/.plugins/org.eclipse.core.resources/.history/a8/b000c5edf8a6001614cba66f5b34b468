@@ -1,0 +1,12 @@
+package com.algav.patricia.string;
+
+public class PATStringE implements IPATStringE{
+
+	public static void main (String[] args){
+		String s1 = "abc";
+		char ascii = (char)0;
+		StringBuilder st = new StringBuilder(ascii);
+		System.out.println(st + '\n');
+		String s2 = s1.concat(st.toString()));
+	}
+}
