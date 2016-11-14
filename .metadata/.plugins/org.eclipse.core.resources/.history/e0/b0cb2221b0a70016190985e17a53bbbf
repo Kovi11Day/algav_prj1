@@ -1,0 +1,15 @@
+
+package com.algav.patricia;
+
+import com.algav.patricia.string.IPATString;
+
+public interface IPATCase {
+
+	IPATString getMot();
+	
+	void setMot(IPATString mot);
+	
+	IPatriciaTrie getFils();
+	
+	void setFils(IPatriciaTrie fils);
+}

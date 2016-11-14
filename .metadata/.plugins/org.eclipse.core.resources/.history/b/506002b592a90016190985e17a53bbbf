@@ -1,0 +1,16 @@
+package com.algav.patricia;
+
+import com.algav.patricia.string.IPATString;
+
+public interface IPatriciaTrie {
+	
+	String getWord (int i);
+	void setWord(int i, String word);
+	IPatriciaTrie getSon (int i);
+	IPATCase getCase (int i);
+	void setSon (int i, IPatriciaTrie node);
+	
+	//patricia tries
+	void sysAjout (String word);
+	
+}

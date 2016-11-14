@@ -1,6 +1,6 @@
 package com.algav.patricia.exceptions;
 
-public class PatriciaException extends Exception {
+public class PatriciaException extends RuntimeException {
 
 	public PatriciaException(String message) {
 		super(message);

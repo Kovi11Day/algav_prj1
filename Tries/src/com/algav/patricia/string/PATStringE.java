@@ -1,6 +1,6 @@
 package com.algav.patricia.string;
 
-public class PATStringE implements IPATStringE{
+public class PATStringE extends PATWord implements IPATStringE{
 
 	private String str;
 	

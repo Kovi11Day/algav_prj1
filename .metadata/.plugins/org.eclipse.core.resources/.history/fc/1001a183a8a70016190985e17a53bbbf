@@ -1,0 +1,17 @@
+package com.algav.patricia.string;
+
+import com.algav.patricia.exceptions.PATStringException;
+
+public interface IPATString {
+	String getStr();
+	
+	//concatenates epsilon at the end of the word
+	 void concatEpsilon ();
+	
+	//get ascii code of first character of word
+	int asciiFirst();
+	
+	//verify if first character is epsilon
+		//note: there cannot be another character after epsilon
+	boolean firstIsEpsilon() throws PATStringException;
+}

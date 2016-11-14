@@ -1,0 +1,7 @@
+package com.algav.patricia.string;
+
+public interface IPATString {
+	String getStr();
+	void concatEpsilon ();
+	int asciiFirst();
+}

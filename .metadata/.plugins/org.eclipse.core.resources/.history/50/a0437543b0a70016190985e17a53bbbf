@@ -1,0 +1,38 @@
+package com.algav.patricia;
+
+import com.algav.patricia.string.IPATString;
+
+public class PATCase implements IPATCase{
+	
+	private IPATString word;
+	private IPatriciaTrie son;
+	
+	public PATCase(IPATString mot, IPatriciaTrie fils){
+		this.word = mot;
+		this.son = fils;
+	}
+	
+	public PATCase(IPATString mot){
+		this.word = mot;
+		this.son = null;
+	}
+	
+	public IPATString getMot() {
+		return word;
+	}
+	public void setMot(IPATString word) {
+		this.word = word;
+	}
+	public IPatriciaTrie getSon() {
+		return son;
+	}
+	public void setSon(IPatriciaTrie son) {
+		this.son = son;
+	}
+	
+	public boolean hasSon(){
+		return this.get
+	}
+	
+
+}

@@ -1,0 +1,18 @@
+
+package com.algav.patricia;
+
+import com.algav.patricia.string.IPATString;
+
+public interface IPATCase {
+
+	String getWord();
+	
+	
+	void setWord(String word);
+	
+	IPatriciaTrie getSon();
+	
+	void setSon(IPatriciaTrie son);
+	
+	 boolean hasSon();
+}

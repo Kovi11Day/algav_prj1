@@ -1,0 +1,10 @@
+package com.algav.patricia.string;
+
+import com.algav.patricia.exceptions.PATStringException;
+
+public interface IPATString {
+	String getStr();
+	void concatEpsilon ();
+	int asciiFirst();
+	boolean firstIsEpsilon() throws PATStringException;
+}

@@ -1,0 +1,33 @@
+package com.algav.patricia;
+
+import com.algav.patricia.string.IPATString;
+import com.algav.patricia.string.IPATStringE;
+import com.algav.patricia.string.IPATWord;
+
+public class PatriciaTrie implements IPatriciaTrie{
+
+	private IPATCase[] patTrie;
+	private static final int SIZE = 128;
+	
+	//creer un noeud vide et y ajouter un seul mot
+	public PatriciaTrie(IPATString mot){
+		this.patTrie = new IPATCase[SIZE];
+		this.patTrie[mot.asciiFirst()] 
+				= new PATCase (mot.concatEpsilon());
+	}
+	
+	public IPATString getWord (int i){
+		return this.patTrie[i].getWord();
+				
+	}
+	
+	public IPatriciaTrie getSon (int i){
+		return this.patTrie[i].getSon();
+	}
+	
+	public IPatriciaTrie ajout (String word){
+		return null;
+	}
+	
+	
+}
