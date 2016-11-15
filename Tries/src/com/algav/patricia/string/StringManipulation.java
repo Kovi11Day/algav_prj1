@@ -47,7 +47,6 @@ public static boolean firstIsEpsilon(String s) throws PATStringException{
 }
 
 //returns longest common prefixe of 2 strings
-//returns null if none found
 public static String prefixe(String s1, String s2){
 	String result = "";
 	int len = Math.min(s1.length(), s2.length());
@@ -81,6 +80,5 @@ public static void main(String[] s){
 	String s1 = "abcd";
 	System.out.println(containsEpsilon(concatEpsilon(s1)));
 	System.out.println(prefixe("tac", "tacb"));
-	
 }
 }

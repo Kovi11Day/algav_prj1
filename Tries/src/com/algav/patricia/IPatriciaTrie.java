@@ -15,9 +15,13 @@ public interface IPatriciaTrie {
 	//sys methods remove from interface after testing
 	void sysAjout (String word);
 	LinkedList<String> sysListeMots(LinkedList<String> liste, String prefixe);
-
+	public boolean sysRecherche(String word);
 	
 	//patricia methods
 	public void ajout(String word);
 	public LinkedList<String> listeMots();
+	public int comptageMots();
+	public int comptageNil();
+	public boolean recherche(String word);
+	public int hauteur();
 }

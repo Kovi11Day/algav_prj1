@@ -1,8 +1,0 @@
-package com.algav.patricia;
-
-public class PatriciaTrie implements IPatriciaTrie{
-
-	public static void main(){
-			
-	}
-}

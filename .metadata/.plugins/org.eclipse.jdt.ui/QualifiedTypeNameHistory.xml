@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.algav.patricia.exceptions.OutOfCharacterSetException"/>
+<fullyQualifiedTypeName name="com.algav.patricia.string.IPATWord"/>
+<fullyQualifiedTypeName name="com.algav.patricia.string.IPATStringE"/>
+<fullyQualifiedTypeName name="com.algav.patricia.exceptions.PATStringException"/>
 <fullyQualifiedTypeName name="com.algav.patricia.string.IPATString"/>
+<fullyQualifiedTypeName name="com.algav.patricia.string.PATString"/>
+<fullyQualifiedTypeName name="com.algav.patricia.string.StringManipulation"/>
+<fullyQualifiedTypeName name="java.awt.List"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="com.algav.patricia.exceptions.PatriciaException"/>
 </qualifiedTypeNameHistroy>

@@ -57,6 +57,8 @@
 	<section name="AddUnimplementedConstructorsDialog">
 		<item value="false" key="OmitCallToSuper"/>
 	</section>
+	<section name="RenameInformationPopup">
+	</section>
 	<section name="DialogBounds_AddUnimplementedConstructorsDialog">
 		<item value="509" key="DIALOG_WIDTH"/>
 		<item value="1|.Helvetica Neue DeskInterface|11.0|0|COCOA|1|.HelveticaNeueDeskInterface-Regular" key="DIALOG_FONT_NAME"/>
