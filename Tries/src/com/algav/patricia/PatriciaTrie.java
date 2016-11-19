@@ -1,6 +1,7 @@
 package com.algav.patricia;
 
 import java.awt.List;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.algav.patricia.exceptions.OutOfCharacterSetException;
@@ -69,8 +70,26 @@ public class PatriciaTrie implements IPatriciaTrie{
 		this.patTrie[i] = new PATCase(s);
 	}
 	
+	public void deleteCase (int i){
+		this.patTrie[i] = null;
+	}
 	
-	/////patricia methods
+	public boolean isLeaf(){
+		for (int i = 0; i < SIZE; ++i){
+			if (this.getCase(i) != null && this.getSon(i) != null)
+				return false;
+		}
+		return true;
+	}
+	
+	public boolean isEmpty(){
+		for (int i=0; i < SIZE; ++i){
+			if (this.getCase(i)!=null)
+				return false;
+		}
+		return true;
+	}
+	/////***************************patricia methods*********************************///
 	//ajout d'un mot dans un patricia trie
 	//note: le patricia trie ne peut pas etre vide
 	public void ajout(String word){
@@ -106,7 +125,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		if (word.startsWith(this.getWord(asciiFirst(word)))){
 			System.out.println("cas4");
 			String rest = rest(word, 
-						prefixe(word,this.getWord(asciiFirst(word))));
+						pref(word,this.getWord(asciiFirst(word))));
 			
 			//ajouter reste du mot dans fils
 			(this.getSon(asciiFirst(word))).sysAjout(rest);
@@ -115,7 +134,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//cas5
 		else{
 			System.out.println("cas5");
-			String prefixe = prefixe(word, this.getWord(asciiFirst(word)));
+			String prefixe = pref(word, this.getWord(asciiFirst(word)));
 			String restWordInput = rest(word, prefixe);
 			String restWordInDic = rest(this.getWord(asciiFirst(word)),prefixe);
 		
@@ -194,9 +213,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 	public boolean sysRecherche(String word){
 		
 		int i = asciiFirst(word);
-		//System.out.println(word.length());
+		
 		//cas1
-		//la case a l'indice i est vide
 		if (this.getCase(i) == null){
 			System.out.println("cas1");
 			return false;
@@ -210,7 +228,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		
 		//cas3
 		//contenu de la case i est pas un prefixe du mot
-		if (!(prefixe(this.getWord(i),word).equals(this.getWord(i)))){
+		if (!(pref(this.getWord(i),word).equals(this.getWord(i)))){
 			System.out.println("cas3");
 			return false;
 		}
@@ -223,7 +241,6 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//cas5
 		else{
 			System.out.println("cas5");
-			//System.out.println(rest(word, this.getWord(i)));
 			return this.getSon(i).sysRecherche(rest(word, this.getWord(i)));
 		}
 		
@@ -242,8 +259,114 @@ public class PatriciaTrie implements IPatriciaTrie{
 		return maxh;
 	}
 	
+	public int prefixe(String strPrefixe){
+		//cas1
+		if (strPrefixe.length() == 0){
+			System.out.println("cas1");
+			return this.comptageMots();
+		}
+		int i = asciiFirst(strPrefixe);
+		//cas2
+		//can we get empty node but allocated one i.e node!=null???
+		if (this.getCase(i) == null){
+			System.out.println("cas2");
+			return 0;
+		}
+		//cas3
+		if (pref(strPrefixe,this.getWord(i)).equals(this.getWord(i))){
+			System.out.println("cas3");
+			return this.getSon(i).prefixe(rest(strPrefixe,this.getWord(i)));
+		}
+		//cas4
+		if (pref(strPrefixe, this.getWord(i)).equals(strPrefixe)){
+			System.out.println("cas4");
+			if (this.getSon(i) != null)
+				return this.getSon(i).comptageMots();
+			else {
+				if (!containsEpsilon(this.getWord(i)))
+					throw new PatriciaException("word in trie must have ended in epsilon");
+				return 1;
+			}
+		}
+		//cas5
+		System.out.println("cas5");
+		return 0;
+	}
+	
+	public Integer profondeurMoyenne(){
+		ArrayList<Integer> l = this.sysProfondeurTotal(0);
+		//l[0]: profondeur total des feuilles
+		//l[1]: nb feuilles
+		return l.get(0)/l.get(1);
+	}
+	
+	public ArrayList<Integer> sysProfondeurTotal(Integer prof){
+		Integer profondeurTotal = 0;
+		Integer nbFeuilles = 0;
+		
+		if (this.isLeaf()){
+			++nbFeuilles;
+			profondeurTotal = prof;
+		}
+		
+		else{
+			for (int i = 0; i <SIZE ; ++i){
+				if (this.getCase(i)!= null && this.getSon(i)!=null){
+					ArrayList<Integer> result= this.getSon(i).sysProfondeurTotal(++prof);
+					profondeurTotal = Integer.sum (profondeurTotal, result.get(0));
+					nbFeuilles = Integer.sum(nbFeuilles, result.get(1));
+				}
+			}
+		}
+		
+		ArrayList<Integer> l = new ArrayList<Integer>(2);
+		l.add(profondeurTotal);
+		l.add(nbFeuilles);
+		return l;
+	}
+	public void suppression(String mot){
+		if (this.comptageMots() == 1 && this.listeMots().get(0).equals(mot)){
+			System.err.println("WARNING: cannot delete last word in dictionary");
+			return;
+		}
+		 sysSuppression(concatEpsilon(mot));
+	}
+	
+	public void sysSuppression(String mot){
+		int i = asciiFirst(mot);
+		//cas1
+		if (this.getCase(i) == null)
+			return;
+		
+		//cas2
+		if (this.getWord(i).equals(mot)){
+			if (this.getSon(i)!=null)
+				throw new PatriciaException("suppression:epsilon cannot be int the middle of word");
+			this.deleteCase(i);;
+		}
+		
+		//cas3
+		else if (isPref(this.getWord(asciiFirst(mot)),mot)){
+			if (this.getSon(i) == null)
+				throw new PatriciaException("suppression:word has to end in epsilon");
+			this.getSon(i).sysSuppression(rest(mot,this.getWord(i)));
+		}
+		
+		//cas4
+		else if (!isPref(this.getWord(asciiFirst(mot)),mot)){
+			return;
+		}
+		
+		//suite cas2 (action a faire en retour de fonction cas2)
+		if (this.getCase(i)!=null && this.getSon(i).isEmpty()){
+			this.setSon(i, null);
+		}
+	}
+	
 	public static void main(String[] s){
+		//WARNING empty dictionary not supported
 		IPatriciaTrie dic = new PatriciaTrie("at");
+		
 		dic.ajout("at");
 		dic.ajout("tac");
 		dic.ajout("cgga");
@@ -254,6 +377,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		dic.ajout("tacgil");
 		dic.ajout("tacb");
 		dic.ajout("cggb");
+		
 		LinkedList<String> l = dic.listeMots();
 		
 		//IPatriciaTrie dic2 = new PatriciaTrie("he2");
@@ -266,7 +390,23 @@ public class PatriciaTrie implements IPatriciaTrie{
 		System.out.println("starting search.................");
 		System.out.println("ended");
 		System.out.println("hauteur: " + dic.hauteur());
+		System.out.println("starting prefixe.................");
+		System.out.println("prefixe de tac: " + dic.prefixe("tac"));
+		System.out.println("profondeur moyenne: " + dic.getSon((int)'t').getSon((int)'g').profondeurMoyenne());
+		//System.out.println((dic.getSon((int)'t')).isLeaf());
+		System.out.println("starting deletion.......................");
+		dic.suppression("tacgil");
+		LinkedList<String> l2 = dic.listeMots();
+		System.out.println(l2.toString());
+
+		IPatriciaTrie dic3 = new PatriciaTrie("at");
+		dic3.suppression("at");
+		LinkedList<String> l3 = dic3.listeMots();
+		System.out.println(l3.toString());
+		System.out.println(dic3.comptageMots());
+
 	}
+	
 	
 	
 	

@@ -47,7 +47,7 @@ public static boolean firstIsEpsilon(String s) throws PATStringException{
 }
 
 //returns longest common prefixe of 2 strings
-public static String prefixe(String s1, String s2){
+public static String pref(String s1, String s2){
 	String result = "";
 	int len = Math.min(s1.length(), s2.length());
 	for (int i = 0; i < len; ++i){
@@ -60,6 +60,10 @@ public static String prefixe(String s1, String s2){
 	return result;
 }
 
+//returns true if s1 is prefixe of s2
+public static boolean isPref(String s1, String s2){
+	return pref(s1,s2).equals(s1);
+}
 //renvoie le reste du mot quand on tronc le prefixe
 //si prefixe de longeur 0, renvoie s
 public static String rest (String s, String prefixe){
@@ -68,6 +72,9 @@ public static String rest (String s, String prefixe){
 
 //returns true if word end with epsilon, false otherwise
 public static boolean containsEpsilon (String s){
+	if (s==null || s.length()==0){
+		throw new PATStringException("contains eps: empty word");
+	}
 	return ((int)s.charAt(s.length()-1) == 0);
 }
 
@@ -76,9 +83,17 @@ public static String truncLast (String s){
 	return s.substring(0, s.length()-1);
 }
 
+//returns string without epsilon in the end
+public static String truncEpsilon(String s){
+	if (containsEpsilon(s)){
+		return truncLast(s);
+	}
+	return s;
+}
+
 public static void main(String[] s){
 	String s1 = "abcd";
 	System.out.println(containsEpsilon(concatEpsilon(s1)));
-	System.out.println(prefixe("tac", "tacb"));
+	System.out.println(pref("tac", "tacb"));
 }
 }

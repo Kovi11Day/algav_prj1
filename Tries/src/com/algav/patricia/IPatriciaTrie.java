@@ -1,5 +1,6 @@
 package com.algav.patricia;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import com.algav.patricia.string.IPATString;
@@ -11,12 +12,16 @@ public interface IPatriciaTrie {
 	IPatriciaTrie getSon (int i);
 	IPATCase getCase (int i);
 	void setSon (int i, IPatriciaTrie node);
-	
+	public boolean isLeaf();
 	//sys methods remove from interface after testing
 	void sysAjout (String word);
 	LinkedList<String> sysListeMots(LinkedList<String> liste, String prefixe);
 	public boolean sysRecherche(String word);
+	public ArrayList<Integer> sysProfondeurTotal(Integer prof);
+	void sysSuppression(String mot);
 	
+	//practical ones
+	public boolean isEmpty();
 	//patricia methods
 	public void ajout(String word);
 	public LinkedList<String> listeMots();
@@ -24,4 +29,7 @@ public interface IPatriciaTrie {
 	public int comptageNil();
 	public boolean recherche(String word);
 	public int hauteur();
+	int prefixe(String strPrefixe);
+	public Integer profondeurMoyenne();
+	public void suppression(String mot);
 }

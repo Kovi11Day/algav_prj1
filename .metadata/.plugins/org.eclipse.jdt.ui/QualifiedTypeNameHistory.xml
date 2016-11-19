@@ -10,4 +10,5 @@
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="com.algav.patricia.exceptions.PatriciaException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>
