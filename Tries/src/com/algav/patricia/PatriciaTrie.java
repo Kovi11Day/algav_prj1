@@ -32,13 +32,16 @@ public class PatriciaTrie implements IPatriciaTrie{
 					= new PATCase (concatEpsilon(mot));
 		}
 	}
-	/*
+	
+	//can only be used internally
 	public PatriciaTrie(){
 		this.patTrie = new IPATCase[SIZE];
 		
 	}
-	*/
+	
 	public String getWord (int i){
+		if (this.patTrie[i] == null)
+			return null;
 		return this.patTrie[i].getWord();
 	}
 	
@@ -52,6 +55,9 @@ public class PatriciaTrie implements IPatriciaTrie{
 	
 	public IPatriciaTrie getSon (int i){
 		//if son == null create case
+		if (this.patTrie[i] == null)
+			return null;
+		
 		return this.patTrie[i].getSon();
 	}
 	
@@ -61,7 +67,14 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 		this.patTrie[i].setSon(node);
 	}
-	
+	/*
+	//set ith son in this node with ith son in node
+	//if ith son in node is null do not set
+	public void setSonGetSonI(int i, IPatriciaTrie node){
+		if (this.patTrie[i] == null){
+
+	}
+	*/
 	public IPATCase getCase (int i){
 		return this.patTrie[i];
 	}
@@ -363,12 +376,102 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 	}
 	
+	public IPatriciaTrie fusion(IPatriciaTrie p){
+		IPatriciaTrie result = new PatriciaTrie();
+		for (int i = 0; i < SIZE; ++i){
+			//cas0
+			if (p.getCase(i) == null && this.getCase(i) == null){
+				//System.out.println("0");
+				result.deleteCase(i);
+			}
+			//cas1 - une des cases vide
+			else if (p.getCase(i) == null && this.getCase(i) != null){
+				System.out.println("cas1.1");
+				result.setWord(i, this.getWord(i));
+				result.setSon(i, this.getSon(i));
+			}else if(p.getCase(i)!=null && this.getCase(i)==null){
+				System.out.println("cas1.2");
+				result.setWord(i, p.getWord(i));
+				result.setSon(i, p.getSon(i));
+			}
+			
+			//cas2 - les deux cases contiennent le meme mot
+			else if(p.getWord(i).equals(this.getWord(i))){
+				System.out.println ("cas2");
+				result.setWord(i, this.getWord(i));
+				if (this.getSon(i) == null)
+					result.setSon(i,p.getSon(i));
+				else if (p.getSon(i) == null)
+					result.setSon(i, this.getSon(i));
+				else{
+					result.setSon(i, this.getSon(i).fusion(p.getSon(i)));
+				}
+				
+			}
+			//les deux ont un prefixe commun
+
+			//cas3- l'un contient le prefixe de l'autre
+			else if (isPref(this.getWord(i), p.getWord(i))){
+				System.out.println("cas3.1");
+				if (this.getSon(i) == null){
+					throw new PatriciaException("word must end in eps");
+				}
+				IPatriciaTrie temp = new PatriciaTrie();
+				int k = asciiFirst(rest(p.getWord(i),this.getWord(i)));
+				temp.setWord(k, rest(p.getWord(i),this.getWord(i)));
+				temp.setSon(k, p.getSon(i));
+				
+				result.setWord(i, this.getWord(i));
+				result.setSon(i, this.getSon(i).fusion(temp));
+
+				
+			}else if (isPref(p.getWord(i), this.getWord(i))){
+				System.out.println("cas3.2");
+				if (p.getSon(i) == null){
+					throw new PatriciaException("word must end in eps");
+				}
+				
+				IPatriciaTrie temp = new PatriciaTrie();
+				int j = asciiFirst(rest(this.getWord(i),p.getWord(i)));
+				temp.setWord(j, rest(this.getWord(i),p.getWord(i)));
+				temp.setSon(j, this.getSon(i));
+
+				result.setWord(i, p.getWord(i));
+				result.setSon(i, temp.fusion(p.getSon(i)));
+
+			}
+			//cas4- les deux mots sont plus long que le prefixe
+			else{
+				System.out.println("cas4");
+				
+				String prefixe = pref(this.getWord(i),p.getWord(i));
+
+				int j = asciiFirst(rest(this.getWord(i),prefixe));
+				int k = asciiFirst(rest(p.getWord(i),prefixe));
+				
+				result.setWord(i, prefixe);
+				
+				IPatriciaTrie son = new PatriciaTrie();
+				
+				son.setWord(j,rest(this.getWord(i),prefixe));
+				son.setSon(j, this.getSon(i));
+				
+				son.setWord(k, rest(p.getWord(i),prefixe));
+				son.setSon(k, p.getSon(k));
+				
+				result.setSon(i, son);
+
+			}
+		}
+		return result;
+	}
+	
 	public static void main(String[] s){
 		//WARNING empty dictionary not supported
-		IPatriciaTrie dic = new PatriciaTrie("at");
+		IPatriciaTrie dic = new PatriciaTrie("atb");
 		
-		dic.ajout("at");
-		dic.ajout("tac");
+		dic.ajout("tgag");
+		dic.ajout("tgac");
 		dic.ajout("cgga");
 		dic.ajout("tac");
 		dic.ajout("tacg");
@@ -395,18 +498,31 @@ public class PatriciaTrie implements IPatriciaTrie{
 		System.out.println("profondeur moyenne: " + dic.getSon((int)'t').getSon((int)'g').profondeurMoyenne());
 		//System.out.println((dic.getSon((int)'t')).isLeaf());
 		System.out.println("starting deletion.......................");
-		dic.suppression("tacgil");
 		LinkedList<String> l2 = dic.listeMots();
 		System.out.println(l2.toString());
 
+
 		IPatriciaTrie dic3 = new PatriciaTrie("at");
-		dic3.suppression("at");
+		dic3.ajout("tac");
+		dic3.ajout("tacgil");
+		dic3.ajout("yyy");
+		dic3.ajout("tacmlk");
+		dic3.ajout("atc");
+		dic3.ajout("yyy");
+
 		LinkedList<String> l3 = dic3.listeMots();
-		System.out.println(l3.toString());
-		System.out.println(dic3.comptageMots());
+
+		System.out.println("dic1: " + l.toString());
+
+		System.out.println("dic3: " + l3.toString());
+		System.out.println("\n\n\nstarting fusion....................");
+
+		IPatriciaTrie dic4 = dic.fusion(dic3);
+		LinkedList<String> l4 = dic4.listeMots();
+		System.out.println("dic4: " + l4.toString());
+
 
 	}
-	
 	
 	
 	

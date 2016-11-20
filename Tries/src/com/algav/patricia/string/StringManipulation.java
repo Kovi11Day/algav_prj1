@@ -26,6 +26,8 @@ public static String concatEpsilon (String s){
 
 //get ascii code of first character of word
 public static int asciiFirst(String s){
+	if (s == null || s.length() == 0)
+		throw new PATStringException("asciiFirst: word is empty");
 	char c = s.charAt(0);
 	return (int)c;
 }
@@ -61,8 +63,8 @@ public static String pref(String s1, String s2){
 }
 
 //returns true if s1 is prefixe of s2
-public static boolean isPref(String s1, String s2){
-	return pref(s1,s2).equals(s1);
+public static boolean isPref(String prefixe, String mot){
+	return pref(prefixe,mot).equals(prefixe);
 }
 //renvoie le reste du mot quand on tronc le prefixe
 //si prefixe de longeur 0, renvoie s
@@ -95,5 +97,6 @@ public static void main(String[] s){
 	String s1 = "abcd";
 	System.out.println(containsEpsilon(concatEpsilon(s1)));
 	System.out.println(pref("tac", "tacb"));
+	System.out.println(rest("abc","abc").length());
 }
 }

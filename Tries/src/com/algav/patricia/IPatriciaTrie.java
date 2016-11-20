@@ -22,6 +22,7 @@ public interface IPatriciaTrie {
 	
 	//practical ones
 	public boolean isEmpty();
+	public void deleteCase (int i);
 	//patricia methods
 	public void ajout(String word);
 	public LinkedList<String> listeMots();
@@ -32,4 +33,5 @@ public interface IPatriciaTrie {
 	int prefixe(String strPrefixe);
 	public Integer profondeurMoyenne();
 	public void suppression(String mot);
+	public IPatriciaTrie fusion(IPatriciaTrie p);
 }
