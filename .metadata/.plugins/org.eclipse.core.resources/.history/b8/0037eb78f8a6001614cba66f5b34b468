@@ -1,8 +1,0 @@
-package com.algav.patricia.string;
-
-public class PATStringE implements IPATStringE{
-
-	public static void main (String[] args){
-		
-	}
-}
