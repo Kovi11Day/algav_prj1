@@ -1,0 +1,13 @@
+package com.algav;
+
+import java.io.File;
+
+import com.algav.patricia.IPatriciaTrie;
+
+public class ExtractFiles {
+	
+	public IPatriciaTrie constructPATtrie(String filename){
+		File shakespeare = new File (filename);
+		return null;
+	}
+}

@@ -1,0 +1,6 @@
+package com.algav;
+
+public class ExtractFiles {
+
+	File shakespeare = new File ("")
+}

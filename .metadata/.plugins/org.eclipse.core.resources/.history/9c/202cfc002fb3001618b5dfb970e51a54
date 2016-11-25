@@ -19,6 +19,7 @@ public interface IPatriciaTrie {
 	public boolean sysRecherche(String word);
 	public ArrayList<Integer> sysProfondeurTotal(Integer prof);
 	void sysSuppression(String mot);
+	
 	//practical ones
 	public boolean isEmpty();
 	public void deleteCase (int i);

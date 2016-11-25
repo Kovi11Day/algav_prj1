@@ -1,0 +1,53 @@
+package com.algav;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import com.algav.HybridesTries.Ajout;
+import com.algav.HybridesTries.HybridesTries;
+import com.algav.patricia.IPatriciaTrie;
+import com.algav.patricia.PatriciaTrie;
+
+public class ExtractFiles {
+	
+	public static IPatriciaTrie constructPATtrie(String filename) throws FileNotFoundException{
+		InputStream oeuvre = new FileInputStream(filename);
+		//File oeuvre = new File (filename);
+		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
+
+		IPatriciaTrie patricia = new PatriciaTrie();
+		//String inputWord;
+		while(scanner.hasNext()){
+			patricia.ajout(scanner.next());
+		}
+		return patricia;
+	}
+	
+	public static HybridesTries constructHYBtrie(String filename) throws FileNotFoundException{
+		InputStream oeuvre = new FileInputStream(filename);
+		//File oeuvre = new File (filename);
+		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
+
+		HybridesTries hybride = new HybridesTries();
+		//String inputWord;
+		while(scanner.hasNext()){
+			Ajout.ajoutString(scanner.next(),hybride);
+		}
+		return hybride;
+	}
+	
+	public static void main (String[] arg){
+		try{
+			IPatriciaTrie p = constructPATtrie("./shakespeare/1henryiv.txt");
+			IPatriciaTrie p = constructPATtrie("./shakespeare/1henryiv.txt");
+
+			System.out.println(p.listeMots());
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return;
+		}
+	}
+}
