@@ -28,8 +28,8 @@ public class ExtractFiles {
 			test.add(scanner.next());
 		}
 		test.sort(null);
-		//System.out.println((test).toString());
-		//System.out.println("TESTING: " + test.equals(patricia.listeMots()));
+		System.out.println((test).toString());
+		System.out.println("TESTING: " + test.equals(patricia.listeMots()));
 	
 		return patricia;
 	}
@@ -50,9 +50,6 @@ public class ExtractFiles {
 	}
 	
 	public static void testConstruction(String filename) throws FileNotFoundException{
-		//test create, listMots, remove
-		//create patricia and hybride, add words, use listeMots() compare lists with expetedResult
-	
 		InputStream oeuvre = new FileInputStream(filename);
 		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
 		ArrayList<String> expectedResult = new ArrayList<String>();
@@ -60,17 +57,12 @@ public class ExtractFiles {
 			expectedResult.add(scanner.next());
 		}
 		expectedResult.sort(null);
-		//System.out.println("expected list: " + (expectedResult).toString());
-		System.out.println("expected size: " + expectedResult.size());
-		//expectedResult.remove("about");
-		//System.out.println("expected size: " + expectedResult.size());
-
-
+		System.out.println((expectedResult).toString());
 	}
 	
 	public static void main (String[] arg){
 		try{
-		
+			
 			IPatriciaTrie p = constructPATtrie("./shakespeare/1henryiv.txt");
 			HybridesTries h = constructHYBtrie("./shakespeare/1henryiv.txt");
 			System.out.println("patricia: " + p.listeMots().toString());
@@ -79,10 +71,6 @@ public class ExtractFiles {
 			LinkedList<String> lp = p.listeMots();
 			System.out.println("length patricia: " + lp.size());
 			System.out.println("length hybride:" + Ajout.liste(h).size());
-			
-			//expected result
-			testConstruction("./shakespeare/1henryiv.txt");
-			
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return;

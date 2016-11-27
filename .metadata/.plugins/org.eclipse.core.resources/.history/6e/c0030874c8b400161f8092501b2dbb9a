@@ -50,9 +50,6 @@ public class ExtractFiles {
 	}
 	
 	public static void testConstruction(String filename) throws FileNotFoundException{
-		//test create, listMots, remove
-		//create patricia and hybride, add words, use listeMots() compare lists with expetedResult
-	
 		InputStream oeuvre = new FileInputStream(filename);
 		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
 		ArrayList<String> expectedResult = new ArrayList<String>();
@@ -62,10 +59,6 @@ public class ExtractFiles {
 		expectedResult.sort(null);
 		//System.out.println("expected list: " + (expectedResult).toString());
 		System.out.println("expected size: " + expectedResult.size());
-		//expectedResult.remove("about");
-		//System.out.println("expected size: " + expectedResult.size());
-
-
 	}
 	
 	public static void main (String[] arg){

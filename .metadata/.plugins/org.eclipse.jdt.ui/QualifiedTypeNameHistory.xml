@@ -10,5 +10,15 @@
 <fullyQualifiedTypeName name="java.awt.List"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
 <fullyQualifiedTypeName name="com.algav.patricia.exceptions.PatriciaException"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="com.algav.patricia.IPatriciaTrie"/>
+<fullyQualifiedTypeName name="java.util.Scanner"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="com.algav.patricia.PatriciaTrie"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="com.algav.HybridesTries.HybridesTries"/>
+<fullyQualifiedTypeName name="com.algav.HybridesTries.Ajout"/>
+<fullyQualifiedTypeName name="java.time.Clock"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 </qualifiedTypeNameHistroy>
