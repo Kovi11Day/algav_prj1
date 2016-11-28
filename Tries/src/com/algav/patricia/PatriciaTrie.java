@@ -115,14 +115,15 @@ public class PatriciaTrie implements IPatriciaTrie{
 	public void sysAjout (String word){ 
 		
 		//cas1
+		/*
 		if (word == null || word.length() == 0 ){
 			System.out.println("cas1");
 			return;
 		}
-		
+		*/
 		//cas2
 		if (this.getCase(asciiFirst(word)) == null){
-			System.out.println("cas2");
+			//System.out.println("cas2");
 			this.setCase(asciiFirst(word), word);
 			return;
 		}
@@ -130,13 +131,13 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//cas3
 		//mot deja existant
 		if (word.equals((String) this.getWord(asciiFirst(word)))){
-			System.out.println("cas3");
+			//System.out.println("cas3");
 			return;
 		}
 		//cas4
 		//mot dans case prefixe de mot ajouter
 		if (word.startsWith(this.getWord(asciiFirst(word)))){
-			System.out.println("cas4");
+			//System.out.println("cas4");
 			String rest = rest(word, 
 						pref(word,this.getWord(asciiFirst(word))));
 			
@@ -146,13 +147,13 @@ public class PatriciaTrie implements IPatriciaTrie{
 		
 		//cas5
 		else{
-			System.out.println("cas5");
+			//System.out.println("cas5");
 			String prefixe = pref(word, this.getWord(asciiFirst(word)));
 			String restWordInput = rest(word, prefixe);
 			String restWordInDic = rest(this.getWord(asciiFirst(word)),prefixe);
 		
-			IPatriciaTrie newNode = new PatriciaTrie(restWordInDic);
-			
+			IPatriciaTrie newNode = new PatriciaTrie();
+			newNode.setWord(asciiFirst(restWordInDic), restWordInDic);
 			//breaking up struct to accomodate new word
 			this.setWord(asciiFirst(prefixe), prefixe);
 			//newNode.sysAjout(restWordInDic);
