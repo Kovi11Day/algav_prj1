@@ -1,0 +1,219 @@
+package com.algav.patricia;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
+
+import com.algav.HybridesTries.Ajout;
+import com.algav.HybridesTries.HybridesTries;
+
+public class TestPatricia {
+	
+	public TestPatricia(String filename){
+		this.filename = filename;
+		try{
+		InputStream oeuvre = new FileInputStream(filename);
+		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
+		
+		String input = null;
+		while(scanner.hasNext()){
+			input = scanner.next();
+			rawfileList.add(input);
+			if (!(expectedResult.contains(input))){
+				expectedResult.add(input);
+				noDoubles.add(input);
+			}
+		}
+		expectedResult.sort(null);
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return;
+		}
+		this.inputSize = rawfileList.size();
+		for (int i = 0; i < getInputSize(); ++i){
+			this.patriciaTrie.ajout(this.getRawFileList().get(i));
+		}
+	}
+	public int getInputSize(){
+		return inputSize;
+	}
+	public LinkedList<String> getRawFileList() {
+		return rawfileList;
+	}
+
+	private String filename;
+	private LinkedList<String> rawfileList = new LinkedList<String>();
+	private LinkedList<String> noDoubles = new LinkedList<String>();//no doubles
+	private LinkedList<String> expectedResult = new LinkedList<String>(); //sorted and no doubles
+	private int inputSize;
+	private IPatriciaTrie patriciaTrie= new PatriciaTrie();
+	
+	public LinkedList<String> getExpectedResult() {
+		return expectedResult;
+	}
+	
+	public IPatriciaTrie getPatriciaTrie(){
+		return patriciaTrie;
+	}
+	
+	public boolean testConstruction(){
+		IPatriciaTrie p = new PatriciaTrie();
+		for (int i = 0; i < getInputSize(); ++i){
+			p.ajout(this.getRawFileList().get(i));
+		}
+		System.out.println("p: " + p.listeMots() );
+		System.out.println("e: " + getExpectedResult());
+		return p.listeMots().equals(this.getExpectedResult());
+	}
+
+	public boolean testSuppression(){
+		 LinkedList<String> txtList = (LinkedList<String>)this.getRawFileList().clone();
+		 LinkedList<String> expRslts =  txtList;
+		 IPatriciaTrie p = this.getPatriciaTrie();
+			Random random = new Random();
+			int len = txtList.size();
+			int index = 0;
+			int limit = len;
+			
+			for (int i = 0; i < len-1; ++i){
+				index = random.nextInt(limit);
+				p.suppression(txtList.get(index));
+				txtList.remove(index);
+				expRslts = (LinkedList<String>)txtList.clone();
+				expRslts.sort(null);
+				limit--;
+				if (!(expRslts.equals(p.listeMots()))){
+					//System.out.println("expected list: " + (expectedResult).toString());
+					//System.out.println("patricia list: " + (p.listeMots()).toString());
+					return false;
+				}
+			}
+			return true;
+	}
+	
+	public static void testSuppression2(String filename) throws FileNotFoundException{
+		InputStream oeuvre = new FileInputStream(filename);
+		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
+		
+		LinkedList<String> expectedResult = new LinkedList<String>();
+		IPatriciaTrie p = new PatriciaTrie();
+		String input = null;
+		while(scanner.hasNext()){
+			input = scanner.next();
+			if (!(expectedResult.contains(input))){
+				expectedResult.add(input);
+				p.ajout(input);
+			}
+			
+		}
+		
+		expectedResult.sort(null);
+		LinkedList<String> patriciaList = p.listeMots();
+
+		Random random = new Random();
+		int len = expectedResult.size();
+		int index = 0;
+		int limit = len;
+		
+		for (int i = 0; i < len-1; ++i){
+			index = random.nextInt(limit);
+			System.out.println(expectedResult.get(index));
+			p.suppression(expectedResult.get(index));
+			expectedResult.remove(index);
+			patriciaList = p.listeMots();
+			limit--;
+			if (!(expectedResult.equals(patriciaList))){
+				System.out.println("expected list: " + (expectedResult).toString());
+				System.out.println("patricia list: " + (p.listeMots()).toString());
+				return;
+			}
+		}
+		scanner.close();
+		System.out.println("expected list: " + (expectedResult).toString());
+		System.out.println("patricia list: " + (p.listeMots()).toString());
+		System.out.println("SUCCESSFUL :D");
+	}
+	
+	
+	public static void testFusion(String filename) throws FileNotFoundException{
+		InputStream oeuvre = new FileInputStream(filename);
+		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
+		
+		LinkedList<String> expectedResult = new LinkedList<String>();
+		LinkedList<String> noDoubles = new LinkedList<String>();
+
+		IPatriciaTrie p1 = new PatriciaTrie();
+		IPatriciaTrie p2 = new PatriciaTrie();
+		IPatriciaTrie control = new PatriciaTrie();
+
+		String input = null;
+		
+		while(scanner.hasNext()){
+			input = scanner.next();
+			expectedResult.add(input);
+			
+			if (!(noDoubles.contains(input))){
+				noDoubles.add(input);
+			}
+		}
+		
+		int len = expectedResult.size();
+
+		for(int i = 0; i < (int)Math.floor(len); ++i){
+			p1.ajout(expectedResult.get(i));
+			control.ajout(expectedResult.get(i));
+		}
+		for(int i = (int)Math.floor(len) + 1; i < len; ++i){
+			p2.ajout(expectedResult.get(i));
+			control.ajout(expectedResult.get(i));
+		}
+		
+		IPatriciaTrie p = p1.fusion(p2);
+		
+		LinkedList<String> patriciaList = p.listeMots();
+		LinkedList<String> controlList = control.listeMots();
+
+		noDoubles.sort(null);
+
+		if (!(controlList.equals(noDoubles))){
+			System.out.println("FATAL: CONTROL WRONG");
+			return;
+		}
+		if (patriciaList.equals(noDoubles)){
+			System.out.println("SUCCESSFUL :D");
+		}else{
+			System.out.println("expected list: " + (noDoubles).toString());
+			System.out.println("patricia list: " + (p.listeMots()).toString());
+		}
+		
+		scanner.close();
+	
+	}
+	
+	
+	public static void main (String[] args){
+		
+		TestPatricia testeur = new TestPatricia("./shakespeare/1henryiv.txt");
+		//System.out.println("verdict testConstruction: "+ testeur.testConstruction());
+		//System.out.println("verdict testSuppression: "+testeur.testSuppression());
+		
+		try{
+			
+			//expected result
+			//testConstruction("./shakespeare/1henryiv.txt");
+			testSuppression2("./shakespeare/1henryiv.txt");
+			//testFusion("./shakespeare/1henryiv.txt");
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return;
+		}
+		
+		
+	}
+}
+

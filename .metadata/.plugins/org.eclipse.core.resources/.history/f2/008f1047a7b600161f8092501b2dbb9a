@@ -1,0 +1,10 @@
+package com.algav.patricia.transformation;
+
+import java.util.LinkedList;
+
+public class Transformation {
+
+	public LinkedList<TransNode> compress (IPatriciaTrie p){
+		
+	}
+}

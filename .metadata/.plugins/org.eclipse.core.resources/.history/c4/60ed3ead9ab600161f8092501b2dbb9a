@@ -1,0 +1,31 @@
+package com.algav.patricia;
+
+import com.algav.HybridesTries.HybridesTries;
+
+public class EclatePat extends PatriciaTrie {
+	
+	private IPATCase[] eclatPatTrie;
+	private int eclatPatSize;
+	public EclatePat(int i){
+		this.eclatPatTrie = new IPATCase[i];
+		this.eclatPatSize = i;
+	}
+	
+	public EclatePat(PatriciaTrie p){
+		this.eclatPatTrie = p.patTrie;
+		this.eclatPatTrie = p.patTrie.length();
+	}
+	
+	public static HybridesTries patToHyb(PatriciaTrie p){
+		EclatePat ep = new EclatePat(p);
+		return null;
+	}
+	
+	public static EclatePat patToHybPhase1(EclatePat ep){
+		return null;
+	}
+	
+	public static HybridesTries eclatPatToHyb(EclatePat ep){
+		return null;
+	}
+}

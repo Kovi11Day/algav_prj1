@@ -1,0 +1,9 @@
+package com.algav.patricia.transformation;
+
+import java.util.LinkedList;
+
+public class TransTrie {
+	private LinkedList<TransNode> eq;
+	private LinkedList<TransNode> inf;
+	private LinkedList<TransNode> sup;
+}

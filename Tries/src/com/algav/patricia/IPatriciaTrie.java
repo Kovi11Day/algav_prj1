@@ -3,7 +3,6 @@ package com.algav.patricia;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import com.algav.patricia.string.IPATString;
 
 public interface IPatriciaTrie {
 	
@@ -33,4 +32,6 @@ public interface IPatriciaTrie {
 	public Integer profondeurMoyenne();
 	public void suppression(String mot);
 	public IPatriciaTrie fusion(IPatriciaTrie p);
+	//protected IPATCase[] getPatTrie();
+	public int getSize();
 }

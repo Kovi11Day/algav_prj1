@@ -12,8 +12,8 @@ import static com.algav.patricia.string.StringManipulation.*;
 
 public class PatriciaTrie implements IPatriciaTrie{
 
-	private IPATCase[] patTrie;
-	private static final int SIZE = 128;
+	protected IPATCase[] patTrie;
+	protected static final int SIZE = 128;
 	
 	//creer un noeud vide et y ajouter un seul mot
 	public PatriciaTrie(String mot){
@@ -39,6 +39,9 @@ public class PatriciaTrie implements IPatriciaTrie{
 		
 	}
 	
+	public int getSize(){
+		return SIZE;
+	}
 	public String getWord (int i){
 		if (this.patTrie[i] == null)
 			return null;
@@ -102,6 +105,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 		return true;
 	}
+	
+	
 	/////***************************patricia methods*********************************///
 	//ajout d'un mot dans un patricia trie
 	//note: le patricia trie ne peut pas etre vide
@@ -230,31 +235,31 @@ public class PatriciaTrie implements IPatriciaTrie{
 		
 		//cas1
 		if (this.getCase(i) == null){
-			System.out.println("cas1");
+			//System.out.println("cas1");
 			return false;
 		}
 	
 		//cas2
 		if (this.getWord(i).equals(word)){
-			System.out.println("cas2");
+			//System.out.println("cas2");
 			return true;
 		}
 		
 		//cas3
 		//contenu de la case i est pas un prefixe du mot
 		if (!(pref(this.getWord(i),word).equals(this.getWord(i)))){
-			System.out.println("cas3");
+			//System.out.println("cas3");
 			return false;
 		}
 			
 		//cas4
 		if (this.getSon(i) == null){
-			System.out.println("cas4");
+			//System.out.println("cas4");
 			return false;
 		}
 		//cas5
 		else{
-			System.out.println("cas5");
+			//System.out.println("cas5");
 			return this.getSon(i).sysRecherche(rest(word, this.getWord(i)));
 		}
 		
@@ -276,24 +281,24 @@ public class PatriciaTrie implements IPatriciaTrie{
 	public int prefixe(String strPrefixe){
 		//cas1
 		if (strPrefixe.length() == 0){
-			System.out.println("cas1");
+			//System.out.println("cas1");
 			return this.comptageMots();
 		}
 		int i = asciiFirst(strPrefixe);
 		//cas2
 		//can we get empty node but allocated one i.e node!=null???
 		if (this.getCase(i) == null){
-			System.out.println("cas2");
+			//System.out.println("cas2");
 			return 0;
 		}
 		//cas3
 		if (pref(strPrefixe,this.getWord(i)).equals(this.getWord(i))){
-			System.out.println("cas3");
+			//System.out.println("cas3");
 			return this.getSon(i).prefixe(rest(strPrefixe,this.getWord(i)));
 		}
 		//cas4
 		if (pref(strPrefixe, this.getWord(i)).equals(strPrefixe)){
-			System.out.println("cas4");
+			//System.out.println("cas4");
 			if (this.getSon(i) != null)
 				return this.getSon(i).comptageMots();
 			else {
@@ -303,7 +308,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 			}
 		}
 		//cas5
-		System.out.println("cas5");
+		//System.out.println("cas5");
 		return 0;
 	}
 	
@@ -382,23 +387,23 @@ public class PatriciaTrie implements IPatriciaTrie{
 		for (int i = 0; i < SIZE; ++i){
 			//cas0
 			if (p.getCase(i) == null && this.getCase(i) == null){
-				//System.out.println("0");
+				//System.out.println("cas0");
 				result.deleteCase(i);
 			}
 			//cas1 - une des cases vide
 			else if (p.getCase(i) == null && this.getCase(i) != null){
-				System.out.println("cas1.1");
+				//System.out.println("cas1.1");
 				result.setWord(i, this.getWord(i));
 				result.setSon(i, this.getSon(i));
 			}else if(p.getCase(i)!=null && this.getCase(i)==null){
-				System.out.println("cas1.2");
+				//System.out.println("cas1.2");
 				result.setWord(i, p.getWord(i));
 				result.setSon(i, p.getSon(i));
 			}
 			
 			//cas2 - les deux cases contiennent le meme mot
 			else if(p.getWord(i).equals(this.getWord(i))){
-				System.out.println ("cas2");
+				//System.out.println ("cas2");
 				result.setWord(i, this.getWord(i));
 				if (this.getSon(i) == null)
 					result.setSon(i,p.getSon(i));
@@ -409,11 +414,10 @@ public class PatriciaTrie implements IPatriciaTrie{
 				}
 				
 			}
-			//les deux ont un prefixe commun
 
 			//cas3- l'un contient le prefixe de l'autre
 			else if (isPref(this.getWord(i), p.getWord(i))){
-				System.out.println("cas3.1");
+				//System.out.println("cas3.1");
 				if (this.getSon(i) == null){
 					throw new PatriciaException("word must end in eps");
 				}
@@ -427,7 +431,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 
 				
 			}else if (isPref(p.getWord(i), this.getWord(i))){
-				System.out.println("cas3.2");
+				//System.out.println("cas3.2");
 				if (p.getSon(i) == null){
 					throw new PatriciaException("word must end in eps");
 				}
@@ -443,7 +447,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 			}
 			//cas4- les deux mots sont plus long que le prefixe
 			else{
-				System.out.println("cas4");
+				//System.out.println("cas4");
 				
 				String prefixe = pref(this.getWord(i),p.getWord(i));
 
@@ -458,8 +462,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 				son.setSon(j, this.getSon(i));
 				
 				son.setWord(k, rest(p.getWord(i),prefixe));
-				son.setSon(k, p.getSon(k));
-				
+				son.setSon(k, p.getSon(i));
+
 				result.setSon(i, son);
 
 			}
