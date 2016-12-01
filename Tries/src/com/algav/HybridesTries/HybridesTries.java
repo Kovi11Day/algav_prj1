@@ -85,6 +85,18 @@ public class HybridesTries {
 	public void setEq(HybridesTries eq){
 		this.eq = eq;
 	}
-	
 
+	public void setRacine(Node racine) {
+		this.racine = racine;
+	}
+
+	public void setInf(HybridesTries inf) {
+		this.inf = inf;
+	}
+
+	public void setSup(HybridesTries sup) {
+		this.sup = sup;
+	}
+	
+	
 }

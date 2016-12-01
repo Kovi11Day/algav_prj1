@@ -3,20 +3,20 @@ package com.algav.patricia.transformation;
 import java.util.LinkedList;
 
 public class TransTrie {
-	private LinkedList<TransNode> root;
-	private LinkedList<TransNode> eq;
-	private LinkedList<TransNode> inf;
-	private LinkedList<TransNode> sup;
+	private TransNode root;
+	private TransTrie eq;
+	private TransTrie inf;
+	private TransTrie sup;
 	
-	public TransTrie(LinkedList<TransNode> inf, LinkedList<TransNode> eq, LinkedList<TransNode> sup,
-			LinkedList<TransNode> root){
+	public TransTrie(TransTrie inf, TransTrie eq, TransTrie sup,
+			TransNode root){
 		this.eq = eq;
 		this.inf = inf;
 		this.sup = sup;
 		this.root = root;
 	}
 	
-	public TransTrie(LinkedList<TransNode> root){
+	public TransTrie(TransNode root){
 		this.root = root;
 		this.eq = null;
 		this.inf = null;
@@ -24,32 +24,32 @@ public class TransTrie {
 
 	}
 	
-	public LinkedList<TransNode> getRoot() {
+	public TransNode getRoot() {
 		return root;
 	}
-	public LinkedList<TransNode> getEq() {
+	public TransTrie getEq() {
 		return eq;
 	}
-	public LinkedList<TransNode> getInf() {
+	public TransTrie getInf() {
 		return inf;
 	}
-	public LinkedList<TransNode> getSup() {
+	public TransTrie getSup() {
 		return sup;
 	}
 
-	public void setRoot(LinkedList<TransNode> root) {
+	public void setRoot(TransNode root) {
 		this.root = root;
 	}
 
-	public void setEq(LinkedList<TransNode> eq) {
+	public void setEq(TransTrie eq) {
 		this.eq = eq;
 	}
 
-	public void setInf(LinkedList<TransNode> inf) {
+	public void setInf(TransTrie inf) {
 		this.inf = inf;
 	}
 
-	public void setSup(LinkedList<TransNode> sup) {
+	public void setSup(TransTrie sup) {
 		this.sup = sup;
 	}
 	
