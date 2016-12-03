@@ -98,12 +98,13 @@ public class Transformation {
 		if (tt == null)
 			return new HybridesTries();
 		
-		HybridesTries expanded[] = expand(tt.getRoot().getWord()); 
+		HybridesTries expanded[] = new HybridesTries[2]; 
+		expanded = expand(tt.getRoot().getWord());
 		
 		expanded[1].setInf(transFinal(tt.getInf()));
 		expanded[1].setEq(transFinal(tt.getEq()));
 		expanded[1].setSup(transFinal(tt.getSup()));
-		
+
 		return expanded[0];
 
 	}

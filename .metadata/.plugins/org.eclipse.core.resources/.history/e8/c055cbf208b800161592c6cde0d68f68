@@ -76,9 +76,9 @@ public class Transformation {
 		HybridesTries iter = null;
 		for (int i = 0; i < s.length(); ++i){
 			if (s.charAt(i)==((char)0)){
-				iter = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueVide()));
-			}else{
 				iter = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueNonVide()));
+			}else{
+				iter = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueVide()));
 			}
 			
 			if (i == 0)
@@ -98,15 +98,17 @@ public class Transformation {
 		if (tt == null)
 			return new HybridesTries();
 		
-		HybridesTries expanded[] = expand(tt.getRoot().getWord()); 
+		HybridesTries expanded[] = new HybridesTries[2]; 
+		expanded = expand(tt.getRoot().getWord());
 		
 		expanded[1].setInf(transFinal(tt.getInf()));
 		expanded[1].setEq(transFinal(tt.getEq()));
 		expanded[1].setSup(transFinal(tt.getSup()));
-		
+
 		return expanded[0];
 
 	}
+	
 	public static void main(String[] args){
 		TestPatricia t = new TestPatricia("./shakespeare/allswell.txt");
 		System.out.println(t.getRawFileList());

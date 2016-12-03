@@ -360,8 +360,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//cas2
 		if (this.getWord(i).equals(mot)){
 			if (this.getSon(i)!=null)
-				throw new PatriciaException("suppression:epsilon cannot be in the middle of word");
-			this.deleteCase(i);
+				throw new PatriciaException("suppression:epsilon cannot be int the middle of word");
+			this.deleteCase(i);;
 		}
 		
 		//cas3

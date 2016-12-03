@@ -1,7 +1,6 @@
 package com.algav.patricia;
 
 import java.io.FileInputStream;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -12,6 +11,7 @@ import java.util.Scanner;
 
 import com.algav.HybridesTries.Ajout;
 import com.algav.HybridesTries.HybridesTries;
+
 public class TestPatricia {
 	
 	public TestPatricia(String filename){
@@ -127,6 +127,7 @@ public class TestPatricia {
 	
 	
 	public static void main (String[] args){
+		
 		TestPatricia testeur = new TestPatricia("./shakespeare/allswell.txt");
 		//System.out.println("verdict testConstruction: "+ testeur.testConstruction());
 		System.out.println("verdict testSuppression: "+testeur.testSuppression());

@@ -1,8 +1,0 @@
-package com.algav.patricia.transformation;
-
-public class Transformation {
-
-	public LinkedList<TransNode> compress (IPatriciaTrie p){
-		
-	}
-}

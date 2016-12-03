@@ -98,15 +98,24 @@ public class Transformation {
 		if (tt == null)
 			return new HybridesTries();
 		
-		HybridesTries expanded[] = expand(tt.getRoot().getWord()); 
+		HybridesTries expanded[] = new HybridesTries[2]; 
+		expanded = expand(tt.getRoot().getWord());
 		
-		expanded[1].setInf(transFinal(tt.getInf()));
-		expanded[1].setEq(transFinal(tt.getEq()));
-		expanded[1].setSup(transFinal(tt.getSup()));
-		
+
+		HybridesTries i = expanded[0];
+		while(i.getEq() != null){
+			i = i.getEq();
+		//expanded[1].setInf(transFinal(tt.getInf()));
+		//expanded[1].setEq(transFinal(tt.getEq()));
+		//expanded[1].setSup(transFinal(tt.getSup()));
+		}
+		i.setInf(transFinal(tt.getInf()));
+		i.setEq(transFinal(tt.getEq()));
+		i.setSup(transFinal(tt.getSup()));
 		return expanded[0];
 
 	}
+	
 	public static void main(String[] args){
 		TestPatricia t = new TestPatricia("./shakespeare/allswell.txt");
 		System.out.println(t.getRawFileList());

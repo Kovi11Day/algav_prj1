@@ -127,6 +127,7 @@ public class TestPatricia {
 	
 	
 	public static void main (String[] args){
+		StopWatch watch = new StopWatch();
 		TestPatricia testeur = new TestPatricia("./shakespeare/allswell.txt");
 		//System.out.println("verdict testConstruction: "+ testeur.testConstruction());
 		System.out.println("verdict testSuppression: "+testeur.testSuppression());

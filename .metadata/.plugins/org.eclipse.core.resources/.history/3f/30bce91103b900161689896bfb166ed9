@@ -103,7 +103,7 @@ public class Transformation {
 		expanded[1].setInf(transFinal(tt.getInf()));
 		expanded[1].setEq(transFinal(tt.getEq()));
 		expanded[1].setSup(transFinal(tt.getSup()));
-		
+
 		return expanded[0];
 
 	}
