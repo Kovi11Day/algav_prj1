@@ -21,6 +21,10 @@ public class TransNode {
 		this.son = l;
 	}
 	
+	public void setWord(String word){
+		this.word = word;
+	}
+	
 	public void deleteSon(){
 		this.son = null;
 	}

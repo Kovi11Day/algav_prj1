@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 
-import com.algav.HybridesTries.Exceptions.InvalidCharactereException;
+import com.algav.HybridesTries.InvalidCharactereException;
 
 public class Ajout {
 	
@@ -372,8 +372,9 @@ public class Ajout {
 	
 	public static HybridesTries supression(HybridesTries h, String mot) {
 		if(recherche(h, mot) ==  false){
-			System.out.println("le mot "+mot+" n'existe pas dans le dico");
-			return new HybridesTries();
+			//System.out.println("le mot "+mot+" n'existe pas dans le dico");
+			//return new HybridesTries();
+			return h;
 			}
 		return suprimer(h,mot, mot.length());
 	}

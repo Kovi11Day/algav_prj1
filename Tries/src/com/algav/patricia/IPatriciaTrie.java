@@ -16,7 +16,7 @@ public interface IPatriciaTrie {
 	void sysAjout (String word);
 	LinkedList<String> sysListeMots(LinkedList<String> liste, String prefixe);
 	public boolean sysRecherche(String word);
-	public ArrayList<Integer> sysProfondeurTotal(Integer prof);
+	//public ArrayList<Integer> sysProfondeurTotal(Integer prof);
 	void sysSuppression(String mot);
 	//practical ones
 	public boolean isEmpty();
@@ -29,9 +29,13 @@ public interface IPatriciaTrie {
 	public boolean recherche(String word);
 	public int hauteur();
 	int prefixe(String strPrefixe);
-	public Integer profondeurMoyenne();
+	public int profondeurMoyenne();
 	public void suppression(String mot);
 	public IPatriciaTrie fusion(IPatriciaTrie p);
 	//protected IPATCase[] getPatTrie();
 	public int getSize();
+	public int getNbCases();
+	public IPatriciaTrie clone();
+	public int profondeurTotal();
+	public int nbFeuilles();
 }

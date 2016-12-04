@@ -18,7 +18,6 @@ public static String stringValid(String s){
 
 //concatenates epsilon at the end of the word
 public static String concatEpsilon (String s){
-	
 	char epsilon_char = (char)0;
 	String epsilon_str = String.valueOf(epsilon_char);
 	return s.concat(epsilon_str);
@@ -62,7 +61,7 @@ public static String pref(String s1, String s2){
 	return result;
 }
 
-//returns true if s1 is prefixe of s2
+//returns true if "prefixe" is prefixe of "mot"
 public static boolean isPref(String prefixe, String mot){
 	return pref(prefixe,mot).equals(prefixe);
 }
@@ -96,6 +95,7 @@ public static String truncEpsilon(String s){
 public static void main(String[] s){
 	String s1 = "abcd";
 	System.out.println(containsEpsilon(concatEpsilon(s1)));
+	System.out.println(s1.length() + " ," + concatEpsilon(s1).length());
 	System.out.println(pref("tac", "tacb"));
 	System.out.println(rest("abc","abc").length());
 }

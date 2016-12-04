@@ -2086,3 +2086,219 @@ Binding(ALT+CTRL+P,
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
+
+!ENTRY org.eclipse.gmf.runtime.common.ui 4 0 2016-12-03 15:08:21.168
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Exception in org.eclipse.gmf.runtime.common.ui.internal.CommonUIPlugin.stop() of bundle org.eclipse.gmf.runtime.common.ui.
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:847)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:950)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:324)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:626)
+	at org.eclipse.osgi.container.Module.stop(Module.java:488)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1623)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1542)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:248)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:145)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:626)
+	at org.eclipse.osgi.container.Module.stop(Module.java:488)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:186)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:160)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4441)
+	at org.eclipse.swt.SWT.error(SWT.java:4356)
+	at org.eclipse.swt.SWT.error(SWT.java:4327)
+	at org.eclipse.swt.widgets.Display.error(Display.java:1094)
+	at org.eclipse.swt.widgets.Display.createDisplay(Display.java:846)
+	at org.eclipse.swt.widgets.Display.create(Display.java:829)
+	at org.eclipse.swt.graphics.Device.<init>(Device.java:130)
+	at org.eclipse.swt.widgets.Display.<init>(Display.java:720)
+	at org.eclipse.swt.widgets.Display.<init>(Display.java:711)
+	at org.eclipse.swt.widgets.Display.getDefault(Display.java:1414)
+	at org.eclipse.gmf.runtime.common.ui.util.DisplayUtils.getDisplay(DisplayUtils.java:41)
+	at org.eclipse.gmf.runtime.common.ui.util.UIModificationValidator.dispose(UIModificationValidator.java:208)
+	at org.eclipse.gmf.runtime.common.ui.internal.CommonUIPlugin.stop(CommonUIPlugin.java:83)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:827)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:820)
+	... 13 more
+Root exception:
+org.eclipse.swt.SWTException: Invalid thread access
+	at org.eclipse.swt.SWT.error(SWT.java:4441)
+	at org.eclipse.swt.SWT.error(SWT.java:4356)
+	at org.eclipse.swt.SWT.error(SWT.java:4327)
+	at org.eclipse.swt.widgets.Display.error(Display.java:1094)
+	at org.eclipse.swt.widgets.Display.createDisplay(Display.java:846)
+	at org.eclipse.swt.widgets.Display.create(Display.java:829)
+	at org.eclipse.swt.graphics.Device.<init>(Device.java:130)
+	at org.eclipse.swt.widgets.Display.<init>(Display.java:720)
+	at org.eclipse.swt.widgets.Display.<init>(Display.java:711)
+	at org.eclipse.swt.widgets.Display.getDefault(Display.java:1414)
+	at org.eclipse.gmf.runtime.common.ui.util.DisplayUtils.getDisplay(DisplayUtils.java:41)
+	at org.eclipse.gmf.runtime.common.ui.util.UIModificationValidator.dispose(UIModificationValidator.java:208)
+	at org.eclipse.gmf.runtime.common.ui.internal.CommonUIPlugin.stop(CommonUIPlugin.java:83)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:827)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl$4.run(BundleContextImpl.java:1)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.eclipse.osgi.internal.framework.BundleContextImpl.stop(BundleContextImpl.java:820)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle.stopWorker0(EquinoxBundle.java:950)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$EquinoxModule.stopWorker(EquinoxBundle.java:324)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:626)
+	at org.eclipse.osgi.container.Module.stop(Module.java:488)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.decStartLevel(ModuleContainer.java:1623)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1542)
+	at org.eclipse.osgi.container.SystemModule.stopWorker(SystemModule.java:248)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule.stopWorker(EquinoxBundle.java:145)
+	at org.eclipse.osgi.container.Module.doStop(Module.java:626)
+	at org.eclipse.osgi.container.Module.stop(Module.java:488)
+	at org.eclipse.osgi.container.SystemModule.stop(SystemModule.java:186)
+	at org.eclipse.osgi.internal.framework.EquinoxBundle$SystemBundle$EquinoxSystemModule$1.run(EquinoxBundle.java:160)
+	at java.lang.Thread.run(Thread.java:745)
+!SESSION 2016-12-03 17:29:55.228 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/kovila/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/kovila/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.recommenders.apidocs.rcp 4 0 2016-12-03 17:29:56.076
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.recommenders.apidocs.rcp [417]
+  Unresolved requirement: Require-Bundle: org.eclipse.recommenders.apidocs; bundle-version="2.0.0"
+    -> Bundle-SymbolicName: org.eclipse.recommenders.apidocs; bundle-version="2.1.9.v20140917-1240"
+       org.eclipse.recommenders.apidocs [416]
+         Unresolved requirement: Require-Bundle: org.eclipse.recommenders.models
+           -> Bundle-SymbolicName: org.eclipse.recommenders.models; bundle-version="2.1.9.v20140917-1240"
+              org.eclipse.recommenders.models [425]
+                Unresolved requirement: Import-Package: org.apache.maven.repository.internal; version="[3.1.0,3.2.0)"
+                  -> Export-Package: org.apache.maven.repository.internal; bundle-symbolic-name="org.eclipse.aether.maven"; bundle-version="3.1.0.v20140706-2237"; version="3.1.0"; uses:="com.google.inject,javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log"
+                     org.eclipse.aether.maven [76]
+                       Unresolved requirement: Import-Package: org.eclipse.aether; version="[0.9.1,1.1.0)"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.recommenders.models 4 0 2016-12-03 17:29:56.077
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.recommenders.models [425]
+  Unresolved requirement: Import-Package: org.apache.maven.repository.internal; version="[3.1.0,3.2.0)"
+    -> Export-Package: org.apache.maven.repository.internal; bundle-symbolic-name="org.eclipse.aether.maven"; bundle-version="3.1.0.v20140706-2237"; version="3.1.0"; uses:="com.google.inject,javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log"
+       org.eclipse.aether.maven [76]
+         Unresolved requirement: Import-Package: org.eclipse.aether; version="[0.9.1,1.1.0)"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.core.net 1 0 2016-12-03 17:30:03.719
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2016-12-03 17:30:04.141
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2016-12-03 17:30:04.141
+!MESSAGE A conflict occurred for ALT+CTRL+P:
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.m2e.profiles.ui.commands.selectMavenProfileCommand,Select Maven Profiles,
+		,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@2be83e7e,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CreatePatchCommand,Create Patch...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@df0b348,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+!SESSION 2016-12-04 02:17:48.062 -----------------------------------------------
+eclipse.buildId=4.4.2.M20150204-1700
+java.version=1.8.0_45
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=fr_FR
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/kovila/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/kovila/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.recommenders.apidocs.rcp 4 0 2016-12-04 02:17:48.681
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.recommenders.apidocs.rcp [417]
+  Unresolved requirement: Require-Bundle: org.eclipse.recommenders.apidocs; bundle-version="2.0.0"
+    -> Bundle-SymbolicName: org.eclipse.recommenders.apidocs; bundle-version="2.1.9.v20140917-1240"
+       org.eclipse.recommenders.apidocs [416]
+         Unresolved requirement: Require-Bundle: org.eclipse.recommenders.models
+           -> Bundle-SymbolicName: org.eclipse.recommenders.models; bundle-version="2.1.9.v20140917-1240"
+              org.eclipse.recommenders.models [425]
+                Unresolved requirement: Import-Package: org.apache.maven.repository.internal; version="[3.1.0,3.2.0)"
+                  -> Export-Package: org.apache.maven.repository.internal; bundle-symbolic-name="org.eclipse.aether.maven"; bundle-version="3.1.0.v20140706-2237"; version="3.1.0"; uses:="com.google.inject,javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log"
+                     org.eclipse.aether.maven [76]
+                       Unresolved requirement: Import-Package: org.eclipse.aether; version="[0.9.1,1.1.0)"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.recommenders.models 4 0 2016-12-04 02:17:48.683
+!MESSAGE FrameworkEvent ERROR
+!STACK 0
+org.osgi.framework.BundleException: Could not resolve module: org.eclipse.recommenders.models [425]
+  Unresolved requirement: Import-Package: org.apache.maven.repository.internal; version="[3.1.0,3.2.0)"
+    -> Export-Package: org.apache.maven.repository.internal; bundle-symbolic-name="org.eclipse.aether.maven"; bundle-version="3.1.0.v20140706-2237"; version="3.1.0"; uses:="com.google.inject,javax.inject,org.eclipse.aether,org.eclipse.aether.artifact,org.eclipse.aether.deployment,org.eclipse.aether.impl,org.eclipse.aether.installation,org.eclipse.aether.repository,org.eclipse.aether.resolution,org.eclipse.aether.spi.locator,org.eclipse.aether.spi.log"
+       org.eclipse.aether.maven [76]
+         Unresolved requirement: Import-Package: org.eclipse.aether; version="[0.9.1,1.1.0)"
+
+	at org.eclipse.osgi.container.Module.start(Module.java:434)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1582)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.incStartLevel(ModuleContainer.java:1561)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.doContainerStartLevel(ModuleContainer.java:1533)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1476)
+	at org.eclipse.osgi.container.ModuleContainer$ContainerStartLevel.dispatchEvent(ModuleContainer.java:1)
+	at org.eclipse.osgi.framework.eventmgr.EventManager.dispatchEvent(EventManager.java:230)
+	at org.eclipse.osgi.framework.eventmgr.EventManager$EventThread.run(EventManager.java:340)
+
+!ENTRY org.eclipse.core.net 1 0 2016-12-04 02:17:57.818
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.jface 2 0 2016-12-04 02:17:58.187
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2016-12-04 02:17:58.187
+!MESSAGE A conflict occurred for ALT+CTRL+P:
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.m2e.profiles.ui.commands.selectMavenProfileCommand,Select Maven Profiles,
+		,
+		Category(org.eclipse.ui.category.window,Window,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@54626326,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)
+Binding(ALT+CTRL+P,
+	ParameterizedCommand(Command(org.eclipse.team.svn.ui.command.CreatePatchCommand,Create Patch...,
+		,
+		Category(org.eclipse.team.svn.ui.command.category,SVN,null,true),
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@6f4e39b3,
+		,,true),null),
+	org.eclipse.ui.defaultAcceleratorConfiguration,
+	org.eclipse.ui.contexts.window,,,system)

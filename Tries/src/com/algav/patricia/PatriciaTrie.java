@@ -14,7 +14,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 
 	protected IPATCase[] patTrie;
 	protected static final int SIZE = 128;
-	
+	protected int nbCases = 0;
 	//creer un noeud vide et y ajouter un seul mot
 	public PatriciaTrie(String mot){
 		this.patTrie = new IPATCase[SIZE];
@@ -26,10 +26,12 @@ public class PatriciaTrie implements IPatriciaTrie{
 		if (containsEpsilon(mot)){
 			this.patTrie[asciiFirst(mot)]
 					= new PATCase (mot);
+			this.nbCases++;
 		}else{
 			stringValid(mot);
 			this.patTrie[asciiFirst(mot)]
 					= new PATCase (concatEpsilon(mot));
+			this.nbCases++;
 		}
 	}
 	
@@ -51,6 +53,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 	public void setWord(int i, String word){
 		if (this.patTrie[i] == null){
 			this.patTrie[i] = new PATCase(word);
+			this.nbCases++;
 		}else{
 			this.patTrie[i].setWord(word);
 		}
@@ -84,10 +87,16 @@ public class PatriciaTrie implements IPatriciaTrie{
 	
 	public void setCase (int i, String s){
 		this.patTrie[i] = new PATCase(s);
+		this.nbCases++;
 	}
 	
 	public void deleteCase (int i){
+		this.nbCases--;
 		this.patTrie[i] = null;
+	}
+	
+	public int getNbCases(){
+		return this.nbCases;
 	}
 	
 	public boolean isLeaf(){
@@ -97,7 +106,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 		return true;
 	}
-	
+	/*
 	public boolean isEmpty(){
 		for (int i=0; i < SIZE; ++i){
 			if (this.getCase(i)!=null)
@@ -105,7 +114,10 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 		return true;
 	}
-	
+	*/
+	public boolean isEmpty(){
+		return this.nbCases==0;
+	}
 	
 	/////***************************patricia methods*********************************///
 	//ajout d'un mot dans un patricia trie
@@ -312,7 +324,35 @@ public class PatriciaTrie implements IPatriciaTrie{
 		return 0;
 	}
 	
-	public Integer profondeurMoyenne(){
+	public int profondeurMoyenne(){
+		return Math.floorDiv(profondeurTotal(), nbFeuilles());
+	}
+	
+	public int profondeurTotal(){
+		int ttl = 0;
+		if (this.isLeaf())
+			return 0;
+		for (int i = 0; i < SIZE; ++i){
+			if (this.getCase(i)!= null && this.getSon(i)!=null){
+				ttl = ttl + 1 + this.getSon(i).profondeurTotal();
+			}
+		}
+		return ttl;
+	}
+	
+	public int nbFeuilles(){
+		int ttl = 0;
+		if (this.isLeaf())
+			return 1;
+		for (int i = 0; i < SIZE; ++i){
+			if (this.getCase(i)!= null && this.getSon(i)!=null){
+				ttl += this.getSon(i).nbFeuilles();
+			}
+		}
+		return ttl;
+	}
+	
+/*	public Integer profondeurMoyenne(){
 		ArrayList<Integer> l = this.sysProfondeurTotal(0);
 		//l[0]: profondeur total des feuilles
 		//l[1]: nb feuilles
@@ -342,7 +382,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 		l.add(profondeurTotal);
 		l.add(nbFeuilles);
 		return l;
-	}
+	}*/
 	public void suppression(String mot){
 		if (this.comptageMots() == 1 && this.listeMots().get(0).equals(mot)){
 			System.err.println("WARNING: cannot delete last word in dictionary");
@@ -350,8 +390,34 @@ public class PatriciaTrie implements IPatriciaTrie{
 		}
 		 sysSuppression(concatEpsilon(mot));
 	}
-	
 	public void sysSuppression(String mot){
+		int i = asciiFirst(mot);
+		//cas1 - mot pas dans dic
+		if (this.getCase(i) == null)
+			return;
+		else if (this.getWord(i).equals(mot)){
+			if (this.getSon(i)!=null)
+				throw new PatriciaException("suppression:epsilon cannot be in the middle of word");
+			this.deleteCase(i);
+			return;
+		}else if(isPref(this.getWord(i),mot)){
+			if (this.getSon(i) == null)
+				throw new PatriciaException("suppression:word has to end in epsilon");
+			this.getSon(i).sysSuppression(rest(mot,this.getWord(i)));
+			if (this.getSon(i).getNbCases() == 1){
+				int k = 0;
+				while(this.getSon(i).getCase(k) == null)
+					++k;
+				this.setWord(i, this.getWord(i).concat(this.getSon(i).getWord(k)));
+				this.setSon(i, this.getSon(i).getSon(k));
+				return;
+			}else{
+				return;
+			}
+				
+		}
+	}
+	/*public void sysSuppression(String mot){
 		int i = asciiFirst(mot);
 		//cas1
 		if (this.getCase(i) == null)
@@ -380,7 +446,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 		if (this.getCase(i)!=null && this.getSon(i).isEmpty()){
 			this.setSon(i, null);
 		}
-	}
+	}*/
+	
 	
 	public IPatriciaTrie fusion(IPatriciaTrie p){
 		IPatriciaTrie result = new PatriciaTrie();
@@ -471,6 +538,17 @@ public class PatriciaTrie implements IPatriciaTrie{
 		return result;
 	}
 	
+	public IPatriciaTrie clone(){
+		IPatriciaTrie result = new PatriciaTrie();
+		for (int i = 0 ; i < SIZE; ++i){
+			if (this.getCase(i) != null){
+			result.setWord(i, this.getWord(i));
+				if (this.getSon(i)!=null)
+					result.setSon(i, this.getSon(i).clone());
+			}
+		}
+		return result;
+	}
 	public static void main(String[] s){
 		//WARNING empty dictionary not supported
 		IPatriciaTrie dic = new PatriciaTrie("atb");
@@ -486,13 +564,16 @@ public class PatriciaTrie implements IPatriciaTrie{
 		dic.ajout("tacb");
 		dic.ajout("cggb");
 		
+		System.out.println("profondeur moyenne: " + dic.profondeurMoyenne());
 		LinkedList<String> l = dic.listeMots();
-		
+		IPatriciaTrie dicClone = dic.clone();
+		System.out.println(dic.listeMots());
+		System.out.println(dicClone.listeMots());
 		//IPatriciaTrie dic2 = new PatriciaTrie("he2");
 		//String input = 
 		//"A quel genial professeur de dactylographie";
 		//"sommes nous redevables de la superbe phrase ci dessous, un modele du genre, que toute dactylo connait par coeur puisque elle fait appel a chacune des touches du clavier de la machine a ecrire ?";
-		System.out.println("nb mots: " + dic.comptageMots());
+		/*System.out.println("nb mots: " + dic.comptageMots());
 		System.out.println("nb nil: " + dic.comptageNil());
 		System.out.println(l.toString());
 		System.out.println("starting search.................");
@@ -504,9 +585,9 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//System.out.println((dic.getSon((int)'t')).isLeaf());
 		System.out.println("starting deletion.......................");
 		LinkedList<String> l2 = dic.listeMots();
-		System.out.println(l2.toString());
+		System.out.println(l2.toString());*/
 
-
+/*
 		IPatriciaTrie dic3 = new PatriciaTrie("at");
 		dic3.ajout("tac");
 		dic3.ajout("tacgil");
@@ -524,7 +605,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 
 		IPatriciaTrie dic4 = dic.fusion(dic3);
 		LinkedList<String> l4 = dic4.listeMots();
-		System.out.println("dic4: " + l4.toString());
+		System.out.println("dic4: " + l4.toString());*/
 
 
 	}

@@ -16,8 +16,13 @@ public class TestPatricia {
 	
 	public TestPatricia(String filename){
 		this.filename = filename;
+		InputStream oeuvre = null;
 		try{
-		InputStream oeuvre = new FileInputStream(filename);
+			oeuvre = new FileInputStream(filename);
+		}catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+			throw new RuntimeException(e.getMessage());
+		}	
 		Scanner scanner = new Scanner(oeuvre).useDelimiter("\n");
 		
 		String input = null;
@@ -30,10 +35,7 @@ public class TestPatricia {
 			}
 		}
 		expectedResult.sort(null);
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			return;
-		}
+		
 		this.inputSize = rawfileList.size();
 		for (int i = 0; i < getInputSize(); ++i){
 			this.patriciaTrie.ajout(this.getRawFileList().get(i));
@@ -84,17 +86,24 @@ public class TestPatricia {
 		String nonExistant = noDbl.get(0);
 		
 		for (int i = 0; i < this.getNoDoubles().size() - 1; ++i){
-			
+			//System.out.println();
+			String beingDeleted = noDbl.get(0);
+			LinkedList<String> initList = (LinkedList<String>)noDbl.clone();
+			initList.sort(null);
 			p.suppression(noDbl.get(0));
 			noDbl.remove(0);
 			sorted = (LinkedList<String>)noDbl.clone();
 			sorted.sort(null);
 			if (!(p.listeMots().equals(sorted))){
-				System.out.println("expected list: " + (expectedResult).toString());
+				System.out.println("initial list:" + initList);
+				System.out.println("being deleted:" + beingDeleted);
+				System.out.println("expected list: " + (sorted).toString());
 				System.out.println("patricia list: " + (p.listeMots()).toString());
 				return false;
 			}
 		}
+		//System.out.println("expected list: " + (sorted).toString());
+		//System.out.println("patricia list: " + (p.listeMots()).toString());
 		return true;
 	}
 
@@ -127,11 +136,21 @@ public class TestPatricia {
 	
 	
 	public static void main (String[] args){
-		TestPatricia testeur = new TestPatricia("./shakespeare/allswell.txt");
-		//System.out.println("verdict testConstruction: "+ testeur.testConstruction());
+		TestPatricia testeur = new TestPatricia("./shakespeare/comedy_errors.txt");
+		System.out.println("verdict testConstruction: "+ testeur.testConstruction());
 		System.out.println("verdict testSuppression: "+testeur.testSuppression());
-		//System.out.println("verdict testFusion: " +testeur.testFusion());
-		
+		System.out.println("verdict testFusion: " +testeur.testFusion());
+		/*
+		PatriciaTrie p = new PatriciaTrie();
+		for(int j = 0; j < 100000; ++j){
+		for (int i = 0; i < 20; ++i){
+			testeur.getPatriciaTrie().suppression(testeur.getExpectedResult().get(i));
+		}
+		}
+		System.out.println(p.comptageMots());
+		*/
 	}
+	
+		
 }
 

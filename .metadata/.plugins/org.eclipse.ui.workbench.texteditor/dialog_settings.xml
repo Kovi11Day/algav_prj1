@@ -2,22 +2,23 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="false" key="isRegEx"/>
-		<item value="deleteCase" key="selection"/>
+		<item value="null" key="selection"/>
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="true" key="wrap"/>
 		<item value="false" key="wholeword"/>
 		<list key="findhistory">
+			<item value="new HybridesTries()"/>
+			<item value="new HybridesTries"/>
+			<item value="HybridesTries"/>
 			<item value="deleteCase"/>
 			<item value="ArrayList&lt;String&gt;"/>
 			<item value="System"/>
 			<item value="2d"/>
 			<item value="within"/>
-			<item value="liste"/>
-			<item value="System.out.println"/>
-			<item value="pref"/>
 		</list>
 		<list key="replacehistory">
+			<item value="null"/>
 			<item value="LinkedList&lt;String&gt;"/>
 			<item value="//System.out.println "/>
 			<item value="//System.out.println"/>

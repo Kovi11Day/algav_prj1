@@ -11,6 +11,7 @@ import com.algav.HybridesTries.ValueNonVide;
 import com.algav.HybridesTries.ValueVide;
 import com.algav.patricia.IPatriciaTrie;
 import com.algav.patricia.TestPatricia;
+import com.algav.patricia.exceptions.PatriciaException;
 
 import static com.algav.patricia.string.StringManipulation.*;
 
@@ -31,16 +32,17 @@ public class Transformation {
 		return result;
 	}
 	
-	public static void removeEpsNodes(LinkedList<TransNode> cp){
+	public static LinkedList<TransNode> removeEpsNodes(LinkedList<TransNode> cp){
 		if (cp == null)
-			return;
+			return null;
 		for (int i = 0; i < cp.size(); ++i){
-			if (cp.get(i).getSon() != null && cp.get(i).getSon().get(0).getWord().equals((char)(0))){
-				concatEpsilon(cp.get(i).getWord());
+			if (cp.get(i).getSon() != null && cp.get(i).getSon().get(0).getWord().equals(String.valueOf((char)(0)))){
+				cp.get(i).setWord(concatEpsilon(cp.get(i).getWord()));
 				cp.get(i).getSon().remove(0);
 			}
-			removeEpsNodes(cp.get(i).getSon());
+			cp.get(i).setSon(removeEpsNodes(cp.get(i).getSon()));
 		}
+		return cp;
 	}
 	
 	public static int middle(int len){
@@ -60,7 +62,7 @@ public class Transformation {
 		}else if (cp.size() == 2){	
 			result = new TransTrie(cp.get(0));
 			result.setEq(eclater(cp.get(0).getSon()));
-			result.setSup(new TransTrie(cp.get(0)));
+			result.setSup(new TransTrie(cp.get(1)));
 			result.getSup().setEq(eclater(cp.get(1).getSon()));
 		}else{
 			result = new TransTrie(cp.get(middle(cp.size())));
@@ -70,54 +72,143 @@ public class Transformation {
 		}
 		return result;
 	}
-	
+	/*
 	public static HybridesTries[] expand (String s){
-		HybridesTries first = null;
-		HybridesTries iter = null;
-		for (int i = 0; i < s.length(); ++i){
-			if (s.charAt(i)==((char)0)){
-				iter = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueVide()));
+		//le premier char de peut pas etre epsilon
+		if (s.charAt(0)==((char)0))
+			throw new PatriciaException("first character cannot be epsilon");
+		
+		//HybridesTries first = null;
+		//HybridesTries iter = null;
+		
+		HybridesTries first = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(0),new ValueVide()));
+		HybridesTries iter = first;
+
+		for (int i = 1; i < s.length(); ++i){
+			if (i<s.length() - 1 && s.charAt(i+1)==((char)0)){
+				//ValueNonVide: epsilon represente 1 chiffre dans le hybride trie
+				iter.setEq(new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueNonVide())));
 			}else{
-				iter = new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueNonVide()));
+				//ValueVide: il y a pas de valeur (chiffre) dans le noeud du hybride trie
+				iter.setEq(new HybridesTries(new HybridesTries(),new HybridesTries(),new HybridesTries(),new Node(s.charAt(i),new ValueVide())));
 			}
 			
-			if (i == 0)
-				first = iter;
-			
-			if (i != s.length()-1)
-			iter = iter.getEq();
+			iter = iter.getEq();	
 		}
 		HybridesTries result[] = new HybridesTries[2];
 		result[0] = first;
 		result[1] = iter;
-		
+		//System.out.println("String: " + s + "list: " + Ajout.liste(first));
 		return result;
 	}
+	*/
 	
-	public static HybridesTries transFinal(TransTrie tt){
+	
+	public static HybridesTries expand(String s){
+		return ajoutString2(s, new HybridesTries());
+	}
+	
+	public static HybridesTries ajoutString2(String key,HybridesTries a){
+		
+			HybridesTries infVide = new HybridesTries();
+			HybridesTries supVide = new HybridesTries();
+			HybridesTries eqVide = new HybridesTries();
+			if( key.length() == 2 && key.charAt(1)==(char)0){
+				Node n = new Node(key.charAt(0),new ValueNonVide());
+				HybridesTries h = new HybridesTries(infVide, eqVide, supVide,n);
+				return h;
+			}
+			if( key.length() == 1){
+				Node n = new Node(key.charAt(0),new ValueVide());
+				HybridesTries h = new HybridesTries(infVide, eqVide, supVide,n);
+				return h;
+			}
+			else{
+				Node n = new Node(key.charAt(0),new ValueVide());
+				a.setEq(eqVide);
+				return new HybridesTries( infVide,
+						ajoutString2(key.substring(1),a.getEq()), supVide,n);
+				
+			}		
+			
+		}
+	
+	
+	/*
+	public static HybridesTries[] transFinal(TransTrie tt){
 		if (tt == null)
 			return new HybridesTries();
 		
 		HybridesTries expanded[] = expand(tt.getRoot().getWord()); 
 		
-		expanded[1].setInf(transFinal(tt.getInf()));
-		expanded[1].setEq(transFinal(tt.getEq()));
-		expanded[1].setSup(transFinal(tt.getSup()));
+		//type de parcours ne compte pas (inf, pre, suf)
+		expanded[0].setInf(transFinal(tt.getInf()));
+		//expanded[1].setEq(transFinal(tt.getEq()));
+		expanded[0].setSup(transFinal(tt.getSup()));
 		
+		HybridesTries iter = expanded[0];
+		while (!iter.getEq().isVide()){
+			iter = iter.getEq();
+		}
+		iter.setEq(transFinal(tt.getEq()));
+
 		return expanded[0];
 
 	}
+	*/
+	public static HybridesTries transFinal(TransTrie tt){
+		if (tt == null)
+			return new HybridesTries();
+		HybridesTries expanded = expand(tt.getRoot().getWord()); 
+		//type de parcours ne compte pas (inf, pre, suf)
+			expanded.setInf(transFinal(tt.getInf()));
+			expanded.setSup(transFinal(tt.getSup()));
+				
+				HybridesTries iter = expanded;
+				while (!iter.getEq().isVide()){
+					iter = iter.getEq();
+				}
+				iter.setEq(transFinal(tt.getEq()));
+
+				return expanded;
+	}
 	public static void main(String[] args){
-		TestPatricia t = new TestPatricia("./shakespeare/allswell.txt");
-		System.out.println(t.getRawFileList());
+		
+		TestPatricia t = new TestPatricia("./shakespeare/asyoulikeit.txt");
+		//System.out.println("raw file: " + t.getRawFileList());
 	
 		LinkedList<TransNode> ct = compress(t.getPatriciaTrie());
 		
-		removeEpsNodes(ct);
+		HybridesTries tst = new HybridesTries();
+		for (int i = 0; i < t.getInputSize(); ++i)
+			tst = Ajout.ajoutString(t.getRawFileList().get(i),tst);
+		ct = removeEpsNodes(ct);
 		//mal construit h
 		HybridesTries h = transFinal(eclater(ct));
+		System.out.println("patricia: " + t.getPatriciaTrie().listeMots());
+		System.out.println("hybride: " + Ajout.liste(tst));
+		System.out.println("hybride: " + Ajout.liste(h));
 		System.out.println("patricia: " + t.getExpectedResult().size());
+		System.out.println("hybride: " + Ajout.comptageMots(tst));
+		System.out.println("generated hybride: " + Ajout.comptageMots(h));
+		ArrayList<String> a = new ArrayList<String>(t.getExpectedResult().size());
+		for (int i = 0; i < t.getExpectedResult().size(); ++i){
+			a.add(i, t.getExpectedResult().get(i));
+		}
+		System.out.println("verdict trans: " + a.equals(Ajout.liste(tst)));
+		//System.out.println();
+		 
+		/*
+		String s = "abcd";
+		s.concat(String.valueOf((char)0));
+		HybridesTries h = expand("abcd");
+		System.out.println("hybride 0");
+		System.out.println(HybridesTries.AfficheHybride(h));
+		System.out.println("hybride 1");
+		System.out.println(HybridesTries.AfficheHybride(h));
 
-		System.out.println("hybride: " + Ajout.comptageMots(h));
+		System.out.println(Ajout.liste(h));
+		System.out.println(Ajout.liste(h));
+		*/
 	}
 }

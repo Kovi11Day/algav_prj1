@@ -10,7 +10,9 @@ import com.algav.patricia.PatriciaTrie;
 
 public class Presentation {
 	public static void main (String args[]) throws CloneNotSupportedException{
-		String filename = "Tries/shakespeare/macbeth.txt";
+		//String filename = "Tries/shakespeare/macbeth.txt";
+		String filename = "./shakespeare/macbeth.txt";
+
 		ArrayList<String> wordsInFile = null;
 		ArrayList<String> wordsInFileWithoutDuplicate =null;
 		HybridesTries h = new HybridesTries();
