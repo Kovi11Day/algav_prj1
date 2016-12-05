@@ -9,7 +9,7 @@ import com.algav.patricia.PatriciaTrie;
 
 public class Calculation2 {
 	//private final static int NTESTS = 100000; 
-	private final static int NTESTS = 1000; 
+	private final static int NTESTS = 10000; 
    
 	public static double constructionHybride( ArrayList<String> words){
 		 long temps_total = 0;

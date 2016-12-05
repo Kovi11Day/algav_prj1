@@ -372,7 +372,7 @@ public class Ajout {
 	
 	public static HybridesTries supression(HybridesTries h, String mot) {
 		if(recherche(h, mot) ==  false){
-			//System.out.println("le mot "+mot+" n'existe pas dans le dico");
+			System.out.println("le mot "+mot+" n'existe pas dans le dico");
 			//return new HybridesTries();
 			return h;
 			}
