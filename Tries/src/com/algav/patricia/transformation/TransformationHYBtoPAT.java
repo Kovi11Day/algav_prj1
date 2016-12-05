@@ -1,5 +1,25 @@
 package com.algav.patricia.transformation;
 
-public class TransformationHYBtoPAT {
+import com.algav.HybridesTries.HybridesTries;
+import com.algav.patricia.PatriciaTrie;
+import static com.algav.patricia.string.StringManipulation.*;
 
+public class TransformationHYBtoPAT {
+	
+	public static PatriciaTrie transformationHybToPat(HybridesTries h){
+		return  transHybToPat(new PatriciaTrie(),  h);
+	}
+	public static PatriciaTrie transHybToPat(PatriciaTrie p, HybridesTries h){
+		int i = (int)(h.getRacine().getKey());
+		p.setWord(i, String.valueOf(h.getRacine().getKey()));
+		if (h.getRacine().getValue().getValeurValue()!= -1){
+			if(!h.getEq().isVide())
+				p.setSon(i, new PatriciaTrie(String.valueOf((char)0)));
+			else
+				p.setWord(i, concatEpsilon(p.getWord(i)));
+		}
+			
+		//REMOVE
+		return null;
+	}
 }
