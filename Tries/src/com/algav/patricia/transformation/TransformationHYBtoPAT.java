@@ -15,8 +15,11 @@ public class TransformationHYBtoPAT {
 		return  transHybToPat(new PatriciaTrie(),  h);
 	}
 	public static PatriciaTrie transHybToPat(PatriciaTrie p, HybridesTries h){
+		
 		int i = (int)(h.getRacine().getKey());
+		
 		p.setWord(i, String.valueOf(h.getRacine().getKey()));
+		
 		if (h.getRacine().getValue() instanceof ValueNonVide){
 			if(h.getEq().isVide())
 				p.setWord(i, concatEpsilon(p.getWord(i)));
@@ -25,7 +28,8 @@ public class TransformationHYBtoPAT {
 				son1.setCase(0, String.valueOf((char)0));
 				p.setSon(i, son1); //unstable pat: non root node having 1 entry
 			}
-			}
+		}
+		
 		if (h.troisFilsVide()) //si h.estFeuille
 			return p;
 		if (!h.getInf().isVide())
@@ -37,9 +41,9 @@ public class TransformationHYBtoPAT {
 		
 		//compresser chaine simple de caractères
 		while (!iter.isVide() && iter.getInf().isVide() && iter.getSup().isVide()){
-			if (iter.getRacine().getValue() instanceof ValueVide){
-				p.setWord(i, p.getWord(i).concat(String.valueOf(h.getRacine().getKey())));
-			}else{
+			p.setWord(i, p.getWord(i).concat(String.valueOf(iter.getRacine().getKey())));
+
+			if (iter.getRacine().getValue() instanceof ValueNonVide){
 				if (iter.getEq().isVide()){
 					p.setWord(i, concatEpsilon(p.getWord(i)));
 				}else{
@@ -66,7 +70,10 @@ public class TransformationHYBtoPAT {
 		System.out.println("original pat: " + testeur.getExpectedResult());
 		HybridesTries h = Transformation.transformationPatToHyb((PatriciaTrie)testeur.getPatriciaTrie());
 		System.out.println("hyb from trans: " + Ajout.liste(h));
+		System.out.println("verdict PAT_to_HYB: " + Ajout.liste(h).equals(testeur.getExpectedResult()));
 		PatriciaTrie p = transformationHybToPat(h);
 		System.out.println("pat from trans:" + p.listeMots());
+		System.out.println("verdict HYB_to_PAT: " + p.listeMots().equals(testeur.getExpectedResult()));
+
 	}
 }
