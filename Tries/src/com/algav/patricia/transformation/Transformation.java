@@ -10,6 +10,7 @@ import com.algav.HybridesTries.Node;
 import com.algav.HybridesTries.ValueNonVide;
 import com.algav.HybridesTries.ValueVide;
 import com.algav.patricia.IPatriciaTrie;
+import com.algav.patricia.PatriciaTrie;
 import com.algav.patricia.TestPatricia;
 import com.algav.patricia.exceptions.PatriciaException;
 
@@ -172,19 +173,26 @@ public class Transformation {
 
 				return expanded;
 	}
+	
+	public static HybridesTries transformationPatToHyb(PatriciaTrie p){
+		LinkedList<TransNode> ct = compress(p);
+		ct = removeEpsNodes(ct);
+		return transFinal(eclater(ct));
+	}
 	public static void main(String[] args){
 		
-		TestPatricia t = new TestPatricia("./shakespeare/asyoulikeit.txt");
+		TestPatricia t = new TestPatricia("./shakespeare/1henryiv.txt");
 		//System.out.println("raw file: " + t.getRawFileList());
 	
-		LinkedList<TransNode> ct = compress(t.getPatriciaTrie());
+		//LinkedList<TransNode> ct = compress(t.getPatriciaTrie());
 		
 		HybridesTries tst = new HybridesTries();
 		for (int i = 0; i < t.getInputSize(); ++i)
 			tst = Ajout.ajoutString(t.getRawFileList().get(i),tst);
-		ct = removeEpsNodes(ct);
+		//ct = removeEpsNodes(ct);
 		//mal construit h
-		HybridesTries h = transFinal(eclater(ct));
+		//HybridesTries h = transFinal(eclater(ct));
+		HybridesTries h = transformationPatToHyb((PatriciaTrie)t.getPatriciaTrie());
 		System.out.println("patricia: " + t.getPatriciaTrie().listeMots());
 		System.out.println("hybride: " + Ajout.liste(tst));
 		System.out.println("hybride: " + Ajout.liste(h));
