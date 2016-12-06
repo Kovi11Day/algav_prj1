@@ -72,7 +72,7 @@ public class TransformationHYBtoPAT {
 		System.out.println("hyb from trans: " + Ajout.liste(h));
 		System.out.println("verdict PAT_to_HYB: " + Ajout.liste(h).equals(testeur.getExpectedResult()));
 		PatriciaTrie p = transformationHybToPat(h);
-		System.out.println("pat from trans:" + p.listeMots());
+		//System.out.println("pat from trans:" + p.listeMots());
 		System.out.println("verdict HYB_to_PAT: " + p.listeMots().equals(testeur.getExpectedResult()));
 
 	}
