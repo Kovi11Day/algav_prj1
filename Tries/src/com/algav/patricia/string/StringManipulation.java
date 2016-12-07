@@ -16,6 +16,15 @@ public static String stringValid(String s){
 	return s;
 }
 
+//concatanetes s1 and s2 if one of them is empty, returns the other
+public static String concatBis(String s1, String s2){
+	if (s1 == null)
+		return s2;
+
+	if (s2 == null)
+		return s1;
+	return s1.concat(s2);
+}
 //concatenates epsilon at the end of the word
 public static String concatEpsilon (String s){
 	char epsilon_char = (char)0;

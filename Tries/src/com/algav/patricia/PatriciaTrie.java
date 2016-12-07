@@ -38,7 +38,6 @@ public class PatriciaTrie implements IPatriciaTrie{
 	//can only be used internally
 	public PatriciaTrie(){
 		this.patTrie = new IPATCase[SIZE];
-		
 	}
 	
 	public int getSize(){
