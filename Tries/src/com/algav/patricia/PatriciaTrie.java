@@ -10,7 +10,7 @@ import com.algav.patricia.exceptions.PatriciaException;
 
 import static com.algav.patricia.string.StringManipulation.*;
 
-public class PatriciaTrie implements IPatriciaTrie{
+public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 
 	protected IPATCase[] patTrie;
 	protected static final int SIZE = 128;
