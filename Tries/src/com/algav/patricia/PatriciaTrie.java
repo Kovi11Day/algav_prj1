@@ -323,8 +323,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 		return 0;
 	}
 	
-	public int profondeurMoyenne(){
-		return Math.floorDiv(profondeurTotal(), nbFeuilles());
+	public double profondeurMoyenne(){
+		return (profondeurTotal()/nbFeuilles());
 	}
 	
 	public int profondeurTotal(){
@@ -383,10 +383,12 @@ public class PatriciaTrie implements IPatriciaTrie{
 		return l;
 	}*/
 	public void suppression(String mot){
+		/*
 		if (this.comptageMots() == 1 && this.listeMots().get(0).equals(mot)){
 			System.err.println("WARNING: cannot delete last word in dictionary");
 			return;
 		}
+		*/
 		 sysSuppression(concatEpsilon(mot));
 	}
 	public void sysSuppression(String mot){
@@ -394,11 +396,13 @@ public class PatriciaTrie implements IPatriciaTrie{
 		//cas1 - mot pas dans dic
 		if (this.getCase(i) == null)
 			return;
+		//cas2 - mot a supprimer == mot dans case
 		else if (this.getWord(i).equals(mot)){
 			if (this.getSon(i)!=null)
 				throw new PatriciaException("suppression:epsilon cannot be in the middle of word");
 			this.deleteCase(i);
 			return;
+		//cas3 - mot dans case est un prefixe de mot a supprimer
 		}else if(isPref(this.getWord(i),mot)){
 			if (this.getSon(i) == null)
 				throw new PatriciaException("suppression:word has to end in epsilon");
@@ -409,8 +413,6 @@ public class PatriciaTrie implements IPatriciaTrie{
 					++k;
 				this.setWord(i, this.getWord(i).concat(this.getSon(i).getWord(k)));
 				this.setSon(i, this.getSon(i).getSon(k));
-				return;
-			}else{
 				return;
 			}
 				
@@ -449,6 +451,14 @@ public class PatriciaTrie implements IPatriciaTrie{
 	
 	
 	public IPatriciaTrie fusion(IPatriciaTrie p){
+		/*
+		if (this == null && p == null)
+			return null;
+		if (this==null && p!=null)
+			return p;
+		if (this!=null && p==null)
+			return this;
+			*/
 		IPatriciaTrie result = new PatriciaTrie();
 		for (int i = 0; i < SIZE; ++i){
 			//cas0
@@ -475,9 +485,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 					result.setSon(i,p.getSon(i));
 				else if (p.getSon(i) == null)
 					result.setSon(i, this.getSon(i));
-				else{
+				else
 					result.setSon(i, this.getSon(i).fusion(p.getSon(i)));
-				}
 				
 			}
 
@@ -508,11 +517,14 @@ public class PatriciaTrie implements IPatriciaTrie{
 				temp.setSon(j, this.getSon(i));
 
 				result.setWord(i, p.getWord(i));
-				result.setSon(i, temp.fusion(p.getSon(i)));
+				result.setSon(i, p.getSon(i).fusion(temp));
+
+				//result.setSon(i, temp.fusion(p.getSon(i)));
 
 			}
 			//cas4- les deux mots sont plus long que le prefixe
-			else{
+			else if (p.getWord(i).length() > pref(p.getWord(i),this.getWord(i)).length() &&
+					this.getWord(i).length() > pref(p.getWord(i),this.getWord(i)).length()){
 				//System.out.println("cas4");
 				
 				String prefixe = pref(this.getWord(i),p.getWord(i));
@@ -533,6 +545,8 @@ public class PatriciaTrie implements IPatriciaTrie{
 				result.setSon(i, son);
 
 			}
+			else{
+				throw new PatriciaException("non existant case");			}
 		}
 		return result;
 	}
@@ -543,7 +557,7 @@ public class PatriciaTrie implements IPatriciaTrie{
 			if (this.getCase(i) != null){
 			result.setWord(i, this.getWord(i));
 				if (this.getSon(i)!=null)
-					result.setSon(i, this.getSon(i).clone());
+					result.setSon(i, this.getSon(i));
 			}
 		}
 		return result;

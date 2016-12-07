@@ -69,8 +69,8 @@ public class Presentation3 {
 		
 	/*	deletedWords = new ArrayList<String>();
 		deletedWords.add("now");*/
-	/*	System.out.println("Supression des mots :"+deletedWords);
-		Comparaison3.deleteWords(h, p, heq, deletedWords);*/
+	System.out.println("Supression des mots :"+deletedWords);
+		Comparaison3.deleteWords(h, p, heq, deletedWords);
 		System.out.println("On ajoute a nos structure le mot :"+word2add);
 		Comparaison3.addWord(h, p, heq, word2add);
 		System.out.println("calcule de la profondeur de nos structure");

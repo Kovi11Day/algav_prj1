@@ -29,7 +29,7 @@ public interface IPatriciaTrie {
 	public boolean recherche(String word);
 	public int hauteur();
 	int prefixe(String strPrefixe);
-	public int profondeurMoyenne();
+	public double profondeurMoyenne();
 	public void suppression(String mot);
 	public IPatriciaTrie fusion(IPatriciaTrie p);
 	//protected IPATCase[] getPatTrie();

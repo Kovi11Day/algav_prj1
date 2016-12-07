@@ -111,16 +111,25 @@ public class TestPatricia {
 		IPatriciaTrie p1 = new PatriciaTrie();
 		IPatriciaTrie p2 = new PatriciaTrie();
 		IPatriciaTrie control = new PatriciaTrie();
-
-		for(int i = 0; i < (int)Math.floor(inputSize/2); ++i){
+		
+		int index;
+		if(this.inputSize % 2 == 0)
+			index = this.inputSize/2;
+		else
+			index = (this.inputSize - 1)/2;
+		
+		for (int i = 0; i < index; ++i){
 			p1.ajout(this.getRawFileList().get(i));
 			control.ajout(this.getRawFileList().get(i));
 		}
-		for(int i = (int)Math.floor(inputSize/2 + 1); i < inputSize; ++i){
+		for (int i = index; i < this.inputSize; ++i){
 			p2.ajout(this.getRawFileList().get(i));
 			control.ajout(this.getRawFileList().get(i));
 		}
-
+		
+		if (!this.expectedResult.equals(control.listeMots()))
+			System.out.println("WARNING: CONTROL NOT CORRESPONDING");
+		
 		IPatriciaTrie p = p2.fusion(p1);
 		
 		if (p.listeMots().equals(this.expectedResult)){
@@ -136,7 +145,7 @@ public class TestPatricia {
 	
 	
 	public static void main (String[] args){
-		TestPatricia testeur = new TestPatricia("./shakespeare/comedy_errors.txt");
+		TestPatricia testeur = new TestPatricia("./shakespeare/cleopatra.txt");
 		System.out.println("verdict testConstruction: "+ testeur.testConstruction());
 		System.out.println("verdict testSuppression: "+testeur.testSuppression());
 		System.out.println("verdict testFusion: " +testeur.testFusion());
