@@ -36,6 +36,6 @@ public interface IPatriciaTrie {
 	public int getSize();
 	public int getNbCases();
 	public IPatriciaTrie clone();
-	public int profondeurTotal();
+	public double profondeurTotal();
 	public int nbFeuilles();
 }

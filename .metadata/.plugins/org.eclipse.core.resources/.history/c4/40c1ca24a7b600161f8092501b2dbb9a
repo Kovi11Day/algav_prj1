@@ -1,6 +1,0 @@
-package com.algav.patricia.transformation;
-
-public class TransNode {
-	private String word;
-	private LinkedList<TransNode> trie;
-}

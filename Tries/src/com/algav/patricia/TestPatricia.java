@@ -29,6 +29,8 @@ public class TestPatricia {
 		while(scanner.hasNext()){
 			input = scanner.next();
 			rawfileList.add(input);
+			rawfileList2.add(input);
+
 			if (!(expectedResult.contains(input))){
 				expectedResult.add(input);
 				noDoubles.add(input);
@@ -39,6 +41,7 @@ public class TestPatricia {
 		this.inputSize = rawfileList.size();
 		for (int i = 0; i < getInputSize(); ++i){
 			this.patriciaTrie.ajout(this.getRawFileList().get(i));
+
 		}
 	}
 	public int getInputSize(){
@@ -47,8 +50,14 @@ public class TestPatricia {
 	public LinkedList<String> getRawFileList() {
 		return rawfileList;
 	}
+	public ArrayList<String> getRawFileList2() {
+		return rawfileList2;
+	}
+
 
 	private String filename;
+	private ArrayList<String> rawfileList2 = new ArrayList<String>();
+
 	private LinkedList<String> rawfileList = new LinkedList<String>();
 	private LinkedList<String> noDoubles = new LinkedList<String>();//no doubles
 	private LinkedList<String> expectedResult = new LinkedList<String>(); //sorted and no doubles
@@ -69,6 +78,7 @@ public class TestPatricia {
 		IPatriciaTrie p = new PatriciaTrie();
 		for (int i = 0; i < getInputSize(); ++i){
 			p.ajout(this.getRawFileList().get(i));
+
 		}
 		return p.listeMots().equals(this.getExpectedResult());
 	}
@@ -81,6 +91,7 @@ public class TestPatricia {
 
 		for (int i = 0; i < this.getRawFileList().size(); ++i){
 			p.ajout(this.getRawFileList().get(i));
+
 		}
 		
 		String nonExistant = noDbl.get(0);

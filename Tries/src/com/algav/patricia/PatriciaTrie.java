@@ -297,7 +297,6 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 		}
 		int i = asciiFirst(strPrefixe);
 		//cas2
-		//can we get empty node but allocated one i.e node!=null???
 		if (this.getCase(i) == null){
 			//System.out.println("cas2");
 			return 0;
@@ -327,8 +326,8 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 		return (profondeurTotal()/nbFeuilles());
 	}
 	
-	public int profondeurTotal(){
-		int ttl = 0;
+	public double profondeurTotal(){
+		double ttl = 0;
 		if (this.isLeaf())
 			return 0;
 		for (int i = 0; i < SIZE; ++i){
@@ -451,14 +450,7 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 	
 	
 	public IPatriciaTrie fusion(IPatriciaTrie p){
-		/*
-		if (this == null && p == null)
-			return null;
-		if (this==null && p!=null)
-			return p;
-		if (this!=null && p==null)
-			return this;
-			*/
+		
 		IPatriciaTrie result = new PatriciaTrie();
 		for (int i = 0; i < SIZE; ++i){
 			//cas0
@@ -565,7 +557,7 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 	public static void main(String[] s){
 		//WARNING empty dictionary not supported
 		IPatriciaTrie dic = new PatriciaTrie("atb");
-		
+		TestPatricia t = new TestPatricia("./shakespeare/cleopatra.txt");
 		dic.ajout("tgag");
 		dic.ajout("tgac");
 		dic.ajout("cgga");
@@ -599,6 +591,7 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 		System.out.println("starting deletion.......................");
 		LinkedList<String> l2 = dic.listeMots();
 		System.out.println(l2.toString());*/
+		System.out.println("profondeur moyenne: " + t.getPatriciaTrie().profondeurMoyenne());
 
 /*
 		IPatriciaTrie dic3 = new PatriciaTrie("at");
@@ -619,7 +612,7 @@ public class PatriciaTrie implements IPatriciaTrie,InterfacePatriciaTrie{
 		IPatriciaTrie dic4 = dic.fusion(dic3);
 		LinkedList<String> l4 = dic4.listeMots();
 		System.out.println("dic4: " + l4.toString());*/
-
+		System.out.println(t.getExpectedResult().size());
 
 	}
 	

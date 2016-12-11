@@ -94,6 +94,7 @@ public static PatriciaTrie transHybToPat(PatriciaTrie p, HybridesTries h, int in
 		if (!h.getSup().isVide())
 			p = transHybToPat(p,h.getSup());
 		
+	
 		HybridesTries iterh = h.getEq();
 		PatriciaTrie iterp = p;
 		int j;
